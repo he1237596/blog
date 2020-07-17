@@ -104,4 +104,6 @@ search:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: ''
+  type: git
+  repo: 'https://github.com/he1237596/blog.git'
+  branch: master
