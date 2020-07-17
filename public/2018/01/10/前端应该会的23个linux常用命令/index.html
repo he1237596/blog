@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    前端应该会的23个linux常用命令 |  追卓
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-前端应该会的23个linux常用命令"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端应该会的23个linux常用命令
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="2018/01/10/前端应该会的23个linux常用命令/" class="article-date">
+  <time datetime="2018-01-09T16:00:00.000Z" itemprop="datePublished">2018-01-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="categories/linux/">linux</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="1、ls-命令-显示目录内容列表"><a href="#1、ls-命令-显示目录内容列表" class="headerlink" title="1、ls 命令 : 显示目录内容列表"></a>1、ls 命令 : 显示目录内容列表</h2><p>Linux ls 命令用于显示指定工作目录下之内容（列出目前工作目录所含之文件及子目录)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls [-alrtAFR] [name...]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options"><a href="#常用-options" class="headerlink" title="常用 options"></a>常用 options</h3><ul>
+<li>-a 显示所有文件及目录 (ls 内定将文件名或目录名称开头为”.”的视为隐藏档，不会列出)</li>
+<li>-A 同 -a ,但不列出 “.” (目前目录) 及 “..” (父目录)</li>
+<li>-R 若目录下有文件,则以下之文件亦皆依序列出</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXiciaz9GKQicnztPXBDQFSmP9EyO4FWMDQCibqDNKda9YwYpgU3uYgL6IU5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="ls-example.png"></p>
+<h2 id="2、rm-命令-删除文件-目录"><a href="#2、rm-命令-删除文件-目录" class="headerlink" title="2、rm 命令 : 删除文件/目录"></a>2、rm 命令 : 删除文件/目录</h2><p>Linux rm 命令用于删除一个文件或者目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm [options] [name...]</span><br></pre></td></tr></table></figure>
+
+<h3 id="options"><a href="#options" class="headerlink" title="options:"></a><strong>options:</strong></h3><ul>
+<li>-i 删除前逐一询问确认</li>
+<li>-r 或-R：递归处理，将指定目录下的所有文件与子目录一并处理</li>
+<li>-f：强制删除文件或目录</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicd2E651EgurUmagE4Vr7klGbkVpwDpibKKTny4EYpO6LibYaT3r9guoCw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="rm-example.png"></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicib6tZowDE15ZYaP1F8foz1iaZLvYUszZHaSBKRVPcSKcCTmtYCge1wsg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="rm.png"></p>
+<h2 id="3、tail-命令-查看文件内容"><a href="#3、tail-命令-查看文件内容" class="headerlink" title="3、tail 命令 : 查看文件内容"></a>3、tail 命令 : 查看文件内容</h2><p>tail 命令可用于查看文件的内容，有一个常用的参数 <strong>-f</strong> 常用于查阅正在改变的日志文件。</p>
+<p><strong>tail -f filename</strong> 会把 filename 文件里的最尾部的内容显示在屏幕上，并且不断刷新，只要 filename 更新就可以看到最新的文件内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail [options][file]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-1"><a href="#常用-options-1" class="headerlink" title="常用 options:"></a>常用 options:</h3><ul>
+<li>-f 循环读取</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicSOhBAQA8FGTWKE3Ria005nCGng9VEhAelb1rvAh6XNKdbzgYP7FFvfw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="tail-example.png"></p>
+<h2 id="4、mv-命令-文件移动-改名"><a href="#4、mv-命令-文件移动-改名" class="headerlink" title="4、mv 命令 : 文件移动/改名"></a><strong>4、mv 命令 : 文件移动/改名</strong></h2><p>Linux mv 命令用来为文件或目录改名、或将文件或目录移入其它位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv [options] source dest</span><br><span class="line"># or</span><br><span class="line">mv [options] source... directory</span><br></pre></td></tr></table></figure>
+
+<h3 id="options-1"><a href="#options-1" class="headerlink" title="options:"></a><strong>options:</strong></h3><ul>
+<li>-i: 若指定目录已有同名文件，则先询问是否覆盖旧文件</li>
+<li>-f: 在 mv 操作要覆盖某已有的目标文件时不给任何指示</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicjzOovSAqeIGa3TzyOTNT8xnAkibk4h5NmfgE92n5KYpkCkJeOybnoyA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicwOH2HFDnz01jiaPz0GOkwOiaQL5WxTiaNAoibplP0ACx1NbcLj9DJkJIOg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="mv-example.png"></p>
+<h2 id="5、-touch-命令-新建文件"><a href="#5、-touch-命令-新建文件" class="headerlink" title="5、 touch 命令 : 新建文件"></a><strong>5、 touch 命令 : 新建文件</strong></h2><p>Linux touch 命令用于修改文件或者目录的时间属性,包括存取时间和更改时间。若文件不存在,系统会建立一个新的文件。</p>
+<p>ls -l 可以显示档案的时间记录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch [file]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXiciaPibkLMu2vnR2ibq3wT4LdQicF8SzMp13WS9LBdPWicGg9ICDHiacXoMbgw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="touch-example.png"></p>
+<h2 id="6、which-命令-查找文件"><a href="#6、which-命令-查找文件" class="headerlink" title="6、which 命令 : 查找文件"></a>6、which 命令 : 查找文件</h2><p>which 指令会在环境变量&dollar;PATH 设置的目录里查找符合条件的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">which [file...]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXichkcyiaogyuLb2mn0uuPrMx2IyiaFsYia6iaoSk1TAVGsjPTCqsjnTWprWA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="which-example.png"></p>
+<h2 id="7、cp-命令-复制文件-目录"><a href="#7、cp-命令-复制文件-目录" class="headerlink" title="7、cp 命令 : 复制文件/目录"></a>7、cp 命令 : 复制文件/目录</h2><p>Linux cp 命令主要用于复制文件或目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp [options] source dest</span><br><span class="line"># or</span><br><span class="line">cp [options] source... directory</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-2"><a href="#常用-options-2" class="headerlink" title="常用 options:"></a>常用 options:</h3><ul>
+<li>-f：覆盖已经存在的目标文件而不给出提示。</li>
+<li>-r：若给出的源文件是一个目录文件,此时将复制该目录下所有的子目录和文件。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXic1ALZfyfibz19SnwTmjVvXcaMyNZyk8ZHEeU4xiarfwiaMc66d8OsZEvzQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="cp-example.png"></p>
+<h2 id="8、cd-命令-切换工作目录"><a href="#8、cd-命令-切换工作目录" class="headerlink" title="8、cd 命令 : 切换工作目录"></a><strong>8、cd 命令 : 切换工作目录</strong></h2><p>Linux cd 命令用于切换当前工作目录至 dirName(目录参数)。</p>
+<p>其中 dirName 表示法可为绝对路径或相对路径。若目录名称省略，则变换至使用者的 home 目录,”~” 也表示为 home 目录 的意思</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd [dirName]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicMg3ichZZSibVqSNS4QkqiakvSGiaxswic0zu8G4yW0vfkTnt3o7mb8Gvia5A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="cd-example.png"></p>
+<h2 id="9、pwd-命令-显示工作目录"><a href="#9、pwd-命令-显示工作目录" class="headerlink" title="9、pwd 命令 : 显示工作目录"></a><strong>9、pwd 命令 : 显示工作目录</strong></h2><p>Linux pwd 命令用于显示工作目录。</p>
+<p>执行 pwd 指令可立刻得知您目前所在的工作目录的绝对路径名称。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicYOxfsbO9nXHuva5KzjMy2o92a02GEsF3SZPQqPFnPKRnVMUeicVrlEw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="pwd-example.png"></p>
+<h2 id="10、-mkdir-命令-创建目录"><a href="#10、-mkdir-命令-创建目录" class="headerlink" title="10、 mkdir 命令 : 创建目录"></a><strong>10、 mkdir 命令 : 创建目录</strong></h2><p>Linux mkdir 命令用于建立名称为 dirName 之子目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir [-p] dirName</span><br></pre></td></tr></table></figure>
+
+<h3 id="options-2"><a href="#options-2" class="headerlink" title="options"></a><strong>options</strong></h3><ul>
+<li>-p 确保目录名称存在,不存在的就建一个。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicSiamgDAfeic1veWZR9yKtt7CC2P2V2BD1pV3hdrK6ZpcOQtItb4XkWeg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="mkdir-example.png"></p>
+<h2 id="11、-rmdir-命令-删除空目录"><a href="#11、-rmdir-命令-删除空目录" class="headerlink" title="11、 rmdir 命令 : 删除空目录"></a><strong>11、 rmdir 命令 : 删除空目录</strong></h2><p>Linux rmdir 命令删除空的目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rmdir [-p] dirName</span><br></pre></td></tr></table></figure>
+
+<h3 id="options-3"><a href="#options-3" class="headerlink" title="options"></a><strong>options</strong></h3><ul>
+<li>-p 是当子目录被删除后使它也成为空目录的话,则顺便一并删除。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicnzgdVKNpHPjeWeDMXQkqzukREibBRCwxic31B1P5r9VVRnr2PLTQAJcQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="rmdir-example.png"></p>
+<h2 id="12、cat-命令-查看文件内容"><a href="#12、cat-命令-查看文件内容" class="headerlink" title="12、cat 命令 : 查看文件内容"></a><strong>12、cat 命令 : 查看文件内容</strong></h2><p>cat 命令用于连接文件并打印到标准输出设备上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat fileName</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicUA0yuKeQ3VibumOYxO4AHfYrBuXDd2Bb8nsxtIzNusvSX1yTTNg5YtQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="cat-example.png"></p>
+<h2 id="13、ping-命令-检测主机"><a href="#13、ping-命令-检测主机" class="headerlink" title="13、ping 命令 : 检测主机"></a><strong>13、ping 命令 : 检测主机</strong></h2><p>执行 ping 指令会使用 ICMP 传输协议,发出要求回应的信息,若远端主机的网络功能没有问题,就会回应该信息,因而得知该主机运作正常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping [主机名称或IP地址]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-3"><a href="#常用-options-3" class="headerlink" title="常用 options:"></a><strong>常用 options:</strong></h3><ul>
+<li>-c&lt;完成次数&gt; 设置完成要求回应的次数。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXico9aWR3iazkLTlBHkjrjxGEDLS4cb4Ae5zTeHHfAq0kggRAPnycAwnJg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="ping-example.png"></p>
+<h2 id="14、-telnet-命令-端口是否可访问"><a href="#14、-telnet-命令-端口是否可访问" class="headerlink" title="14、 telnet 命令 : 端口是否可访问"></a><strong>14、 telnet 命令 : 端口是否可访问</strong></h2><p>虽然 Linux telnet 命令主要用于远端登入。执行 telnet 指令开启终端机阶段作业,并登入远端主机,</p>
+<p>但是我更经常用它来查看某个远端主机端口是否可访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet [主机名称或IP地址&lt;通信端口&gt;]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicGJ14ldzEMk8lO4FwlH5ARdWePhgjqqPK63uobKMQ5y5mzpjgkYJM5g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="telnet-example.png"></p>
+<h2 id="15、-grep-命令-查找关键字"><a href="#15、-grep-命令-查找关键字" class="headerlink" title="15、 grep 命令 : 查找关键字"></a><strong>15、 grep 命令 : 查找关键字</strong></h2><p>Linux grep 命令用于查找文件里符合条件的字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep [文件或目录...]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicnmh4N0IBp0XoOFsNzxsonqicAg3dTic65icBlCUDWo7x5pW5sReJYcMLw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="grep-example.png"></p>
+<h2 id="16、ps-命令-显示当前进程状态"><a href="#16、ps-命令-显示当前进程状态" class="headerlink" title="16、ps 命令 : 显示当前进程状态"></a><strong>16、ps 命令 : 显示当前进程状态</strong></h2><p>Linux ps 命令用于显示当前进程 (process) 的状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps [options]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-4"><a href="#常用-options-4" class="headerlink" title="常用 options"></a><strong>常用 options</strong></h3><ul>
+<li>-e 显示所有进程。</li>
+<li>-f 全格式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef # 显示所有命令，连带命令行</span><br></pre></td></tr></table></figure>
+
+<h2 id="17、-命令-管道命令"><a href="#17、-命令-管道命令" class="headerlink" title="17、| 命令 : 管道命令"></a><strong>17、| 命令 : 管道命令</strong></h2><p>通常情况下,我们只执行一条命令,那么如何执行多条命令呢？</p>
+<p>管道是一种通信机制，通常用于进程间的通信（也可通过 socket 进行网络通信），它表现出来的形式将前面每一个进程的输出（stdout）直接作为下一个进程的输入（stdin）。</p>
+<ul>
+<li>只能处理前一条指令的正确输出，不能处理错误输出</li>
+<li>管道命令必须要能够接受来自前一个命令的数据成为 standard input 继续处理才行。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicW0JTROaSt4XmWED6uAo8jIicRJ2KsODuYib9BAiagafJWtDuoMaodHTTg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="pipe-example.png"></p>
+<h2 id="18、-kill-命令-杀死进程"><a href="#18、-kill-命令-杀死进程" class="headerlink" title="18、 kill 命令 : 杀死进程"></a><strong>18、 kill 命令 : 杀死进程</strong></h2><p>Linux kill 命令用于删除执行中的程序或工作。</p>
+<p>kill 可将指定的信息送至程序。预设的信息为 SIGTERM(15),可将指定程序终止。若仍无法终止该程序,可使用 SIGKILL(9)信息尝试强制删除程序。程序或工作的编号可利用 ps 指令或 jobs 指令查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill [-s &lt;信息名称或编号&gt;][程序]　或　kill [-l &lt;信息编号&gt;]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicIu4Rd9XzGelA6oRNVhHwpzVgInwDq2OQM2FlkJk8LkKg6y6ib10j8iag/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="kill-example.png"></p>
+<h2 id="19、-top-命令-实时显示进程动态"><a href="#19、-top-命令-实时显示进程动态" class="headerlink" title="19、 top 命令 : 实时显示进程动态"></a><strong>19、 top 命令 : 实时显示进程动态</strong></h2><p>Linux top 命令用于实时显示 process 的动态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-5"><a href="#常用-options-5" class="headerlink" title="常用 options:"></a><strong>常用 options:</strong></h3><ul>
+<li>-pid 指定进程 id</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top -pid 4712</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicgUyjGHMO81bZJWFzkGfKjU1yKkRE4LRdJWc5wjEDibKGl8XicHnnVicicw/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="top-example.gif"></p>
+<h2 id="20、-clear-命令-清除屏幕"><a href="#20、-clear-命令-清除屏幕" class="headerlink" title="20、 clear 命令 : 清除屏幕"></a><strong>20、 clear 命令 : 清除屏幕</strong></h2><p>Linux clear 命令用于清除屏幕。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br></pre></td></tr></table></figure>
+
+<h2 id="21、-alias-命令-别名配置"><a href="#21、-alias-命令-别名配置" class="headerlink" title="21、 alias 命令 : 别名配置"></a><strong>21、 alias 命令 : 别名配置</strong></h2><p>Linux alias 命令用于设置指令的别名。</p>
+<p>用户可利用 alias,自定指令的别名。若仅输入 alias,则可列出目前所有的别名设置。alias 的效力仅及于该次登入的操作。若要每次登入是即自动设好别名,可在.profile 或.cshrc 中设定指令的别名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias[别名]&#x3D;[指令名称]</span><br></pre></td></tr></table></figure>
+
+<p>比如 git 原先就配置了一些别名,我们来看看</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicDCebapv4Ung862KZncdSVLlgN2A7V4LBxKpBUOEX8InGWMd3m0X1VQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="alias-example.png"></p>
+<h2 id="22、-find-命令-查找文件"><a href="#22、-find-命令-查找文件" class="headerlink" title="22、 find 命令 : 查找文件"></a><strong>22、 find 命令 : 查找文件</strong></h2><p>Linux find 命令用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。</p>
+<p>如果使用该命令时,不设置任何参数,则 find 命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find path -option [ -print ] [ -exec -ok command ] &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicKicJpTCNiaxldgYS2lYYfsol4TjGFwaCp7OuBH7VP8zWlCic3nPlzBMUg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="find-example.png"></p>
+<h2 id="23、-curl-命令-文件传输"><a href="#23、-curl-命令-文件传输" class="headerlink" title="23、 curl 命令 : 文件传输"></a><strong>23、 curl 命令 : 文件传输</strong></h2><p>linux curl 是通过 url 语法在命令行下上传或下载文件的工具软件,它支持 http,https,ftp,ftps,telnet 等多种协议,常被用来抓取网页和监控 Web 服务器状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl [options] [url]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-6"><a href="#常用-options-6" class="headerlink" title="常用 options:"></a>常用 options:</h3><ul>
+<li>-o 把输出写到该文件中</li>
+<li>-I 仅仅返回 header</li>
+</ul>
+<p>curl 命令能做很多事,用过的人都说香,我说说我常用的场景吧:</p>
+<ol>
+<li><strong>调试请求</strong></li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicVfatkjFFzNATRFc4zG6ykxXv3s2uFqc4MGnpU0vzuuH6FWibjqMnJLw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="curl-example-1.png"></p>
+<ol>
+<li><strong>查看头部信息</strong></li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicu5P8OI6nNACZ44b4IYkzs98Z0UpqMCfIiayz3N91GPibLRvvdNl3iafww/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="curl-example-3.png"></p>
+<ol>
+<li><strong>抓取网页</strong></li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicw40UlPPblJYKicMjNVlicia17aBoJuIZncVAqpxmx774X4hdTEWfpucqA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="curl-example-2.png"></p>
+ 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http:2018/01/10/前端应该会的23个linux常用命令/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="2020/07/16/hexo/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            hexo
+          
+        </div>
+      </a>
+    
+    
+      <a href="2017/12/14/vue父子传参场景集锦/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">vue父子传参场景集锦</div>
+      </a>
+    
+  </nav>
+
+  
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2020
+        <i class="ri-heart-fill heart_icon"></i> Chris
+      </li>
+    </ul>
+    <!-- <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul> -->
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/logo.jpg" alt="追卓"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
