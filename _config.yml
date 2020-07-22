@@ -4,7 +4,7 @@
 
 # Site
 title: 追卓
-subtitle: '生命不息，奋斗不止'
+subtitle: '生命不息，奋斗不止!'
 description: ''
 keywords:
 author: Chris
@@ -14,8 +14,8 @@ timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /
+url: he1237596.github.io/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -104,4 +104,6 @@ search:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: ''
+  type: git
+  repo: 'https://github.com/he1237596/blog.git'
+  branch: gh-pages
