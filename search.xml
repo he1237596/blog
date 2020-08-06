@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>fs</title>
+    <url>/blog/2020/08/06/fs/</url>
+    <content><![CDATA[<h1 id="文件模块-fs"><a href="#文件模块-fs" class="headerlink" title="文件模块  fs"></a>文件模块  fs</h1><h3 id="检测文件是否存在"><a href="#检测文件是否存在" class="headerlink" title="检测文件是否存在"></a><strong>检测文件是否存在</strong></h3><ul>
+<li><p>fs.stat/fs.statSync</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 同步</span></span><br><span class="line"><span class="comment">// cosnt res = fs.statSync('./test01.js') //同步</span></span><br><span class="line"><span class="comment">// res.isDirectory(); //false</span></span><br><span class="line"><span class="comment">// res.isFile(); //true</span></span><br><span class="line"><span class="comment">// const res = fs.statSync('./test999.js') //找不到的文件直接报错</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 异步</span></span><br><span class="line">  fs.stat(<span class="string">'./test01.js'</span>,(err, res)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="comment">// 出错： 如文件不存在</span></span><br><span class="line">      <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res.isDirectory()); <span class="comment">//false</span></span><br><span class="line">        <span class="built_in">console</span>.log(res.isFile()); <span class="comment">//true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h3></li>
+<li><p>fs.mkdir</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 同步</span></span><br><span class="line"><span class="comment">// fs.mkdir('demo',(err)=&gt;&#123;</span></span><br><span class="line"><span class="comment">// 成功没有返回参数</span></span><br><span class="line"><span class="comment">//   if(err)&#123;</span></span><br><span class="line"><span class="comment">//     console.log(err);</span></span><br><span class="line"><span class="comment">//   &#125;else&#123;</span></span><br><span class="line"><span class="comment">//     console.log('创建成功');</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 异步</span></span><br><span class="line"> fs.mkdirSync(<span class="string">'demo2'</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="（新建）写入文件（覆盖内容）"><a href="#（新建）写入文件（覆盖内容）" class="headerlink" title="（新建）写入文件（覆盖内容）"></a>（新建）写入文件（覆盖内容）</h3><ul>
+<li>fs.writeFile<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 异步</span></span><br><span class="line">fs.writeFile(<span class="string">'hello'</span>,<span class="string">'hehe1'</span>,(err)=&gt;&#123;</span><br><span class="line">  <span class="keyword">if</span>(err)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'写入成功'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 同步</span></span><br><span class="line"><span class="comment">// fs.writeFileSync('hello','hehe1')</span></span><br></pre></td></tr></table></figure>
+<h3 id="（新建）追加文件（追加内容）"><a href="#（新建）追加文件（追加内容）" class="headerlink" title="（新建）追加文件（追加内容）"></a>（新建）追加文件（追加内容）</h3></li>
+<li>fs.appendFile<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 异步</span></span><br><span class="line"><span class="comment">// fs.appendFile('hello','hehe1',(err)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   if(err)&#123;</span></span><br><span class="line"><span class="comment">//     console.log(err)</span></span><br><span class="line"><span class="comment">//   &#125;else&#123;</span></span><br><span class="line"><span class="comment">//     console.log('追加写入成功')</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;);</span></span><br><span class="line"><span class="comment">// 同步</span></span><br><span class="line"><span class="comment">// fs.appendFileSync('hello','hehe1')</span></span><br></pre></td></tr></table></figure>
+<h3 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h3></li>
+<li>fs.readFile<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 异步</span></span><br><span class="line"><span class="comment">// fs.readFile('hello',(err, res)=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   if(err)&#123;</span></span><br><span class="line"><span class="comment">//     console.log(err)</span></span><br><span class="line"><span class="comment">//   &#125;else&#123;</span></span><br><span class="line"><span class="comment">//     console.log(res) // buffer</span></span><br><span class="line"><span class="comment">//     console.log(res.toString()) //字符输出</span></span><br><span class="line"><span class="comment">//   &#125;</span></span><br><span class="line"><span class="comment">// &#125;);</span></span><br><span class="line"><span class="comment">// 同步</span></span><br><span class="line"><span class="comment">// fs.readFileSync('hello').toString()</span></span><br></pre></td></tr></table></figure>
+<h3 id="读取文件目录"><a href="#读取文件目录" class="headerlink" title="读取文件目录"></a>读取文件目录</h3></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 读取文件目录</span></span><br><span class="line">fs.readdir(<span class="string">'hello'</span>,(err, res)=&gt;&#123;</span><br><span class="line">  <span class="keyword">if</span>(err)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res) <span class="comment">//文件名列表: [] </span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// console.log(fs.readdirSync('hello'))</span></span><br></pre></td></tr></table></figure>
+<h3 id="重命名（可移动覆盖）"><a href="#重命名（可移动覆盖）" class="headerlink" title="重命名（可移动覆盖）"></a>重命名（可移动覆盖）</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 读取文件目录</span></span><br><span class="line"><span class="comment">// 异步</span></span><br><span class="line">fs.rename(<span class="string">'./dd.js'</span>,<span class="string">'./hello/dd.js'</span>,(err)=&gt;&#123;</span><br><span class="line">  <span class="keyword">if</span>(err)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'重命名成功'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// fs.renameSync('./hello/dd.js','gg.js');</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 删除文件</span></span><br><span class="line"><span class="comment">// 异步</span></span><br><span class="line">fs.unlink(<span class="string">'./dd.js'</span>, (error) =&gt;&#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(error)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'成功的删除文件'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// fs.unlinkSync('./dd/dd.js')</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除文件夹"><a href="#删除文件夹" class="headerlink" title="删除文件夹"></a>删除文件夹</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 删除文件夹</span></span><br><span class="line"><span class="comment">// 异步</span></span><br><span class="line">fs.rmdir(<span class="string">'./dd'</span>, (error) =&gt;&#123;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;<span class="comment">// 文件夹非空会报错</span></span><br><span class="line">  <span class="built_in">console</span>.log(error)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'成功的删除了目录：logs'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// fs.rmdirSync('./dd')</span></span><br></pre></td></tr></table></figure>
+<h3 id="相关包"><a href="#相关包" class="headerlink" title="相关包"></a>相关包</h3><ul>
+<li>mkdirp</li>
+</ul>
+<h3 id="管道流"><a href="#管道流" class="headerlink" title="管道流"></a>管道流</h3><ul>
+<li><p><strong>读取文件流</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> readStream=fs.createReadStream(<span class="string">'./data/input.txt'</span>);</span><br><span class="line"><span class="keyword">var</span> count=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> str=<span class="string">''</span>;</span><br><span class="line">readStream.on(<span class="string">'data'</span>,(data)=&gt;&#123;</span><br><span class="line">    str+=data;</span><br><span class="line">    count++;</span><br><span class="line">&#125;)</span><br><span class="line">readStream.on(<span class="string">'end'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(str)</span><br><span class="line">    <span class="built_in">console</span>.log(count)</span><br><span class="line">&#125;)</span><br><span class="line">readStream.on(<span class="string">'error'</span>,(err)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err);   </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>写入文件流</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">500</span>;i++)&#123;</span><br><span class="line">    str+=<span class="string">'我是从数据库获取的数据，我要保存起来1111\n'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> writeStream=fs.createWriteStream(<span class="string">'./data/output.txt'</span>);</span><br><span class="line"><span class="comment">// 标记文件末尾，否则finish不会触发</span></span><br><span class="line">writeStream.end();</span><br><span class="line">writeStream.on(<span class="string">'finish'</span>,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'写入完成'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>管道流</strong></p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> readStream = fs.createReadStream(<span class="string">'./data/demo.zip'</span>)</span><br><span class="line"><span class="keyword">const</span> writeStream = fs.createWriteStream(<span class="string">'hehe.zip'</span>)</span><br><span class="line"><span class="comment">// &lt;source&gt;.pipe(&lt;target&gt;)</span></span><br><span class="line">readStream.pipe(writeStream);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>Node</tag>
+        <tag>fs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>event</title>
+    <url>/blog/2020/08/06/event/</url>
+    <content><![CDATA[<h3 id="事件对象events"><a href="#事件对象events" class="headerlink" title="事件对象events"></a>事件对象events</h3><ul>
+<li><strong>EventEmitter</strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> events = <span class="built_in">require</span>(<span class="string">'events'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建事件对象</span></span><br><span class="line"><span class="keyword">var</span> eventEmitter = <span class="keyword">new</span> events.EventEmitter();</span><br><span class="line"></span><br><span class="line">setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line"><span class="comment">// 广播</span></span><br><span class="line">  eventEmitter.emit(<span class="string">'my_event'</span>);</span><br><span class="line"></span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br><span class="line"><span class="comment">// 监听</span></span><br><span class="line">eventEmitter.on(<span class="string">'my_event'</span>, () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'data received succesfully.'</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// eventEmitter.emit('my_event');</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Node</category>
+      </categories>
+      <tags>
+        <tag>事件对象</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo</title>
+    <url>/blog/2020/08/06/hexo/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ht</title>
+    <url>/blog/2020/08/06/ht/</url>
+    <content><![CDATA[<h1 id="ht"><a href="#ht" class="headerlink" title="ht"></a>ht</h1><h3 id="node"><a href="#node" class="headerlink" title="node"></a>node</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">        &lt;style&gt;</span><br><span class="line">            html, body &#123;</span><br><span class="line">                padding: <span class="number">0</span>px;</span><br><span class="line">                margin: <span class="number">0</span>px;                </span><br><span class="line">            &#125;            </span><br><span class="line">            .main &#123;</span><br><span class="line">                margin: <span class="number">0</span>px;</span><br><span class="line">                padding: <span class="number">0</span>px;</span><br><span class="line">                position: absolute;</span><br><span class="line">                top: <span class="number">0</span>px;</span><br><span class="line">                bottom: <span class="number">0</span>px;</span><br><span class="line">                left: <span class="number">0</span>px;</span><br><span class="line">                right: <span class="number">0</span>px;</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;<span class="regexp">/style&gt;  </span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">var dataModel = new ht.DataModel(),</span></span><br><span class="line"><span class="regexp">graphView = new ht.graph.GraphView(dataModel),</span></span><br><span class="line"><span class="regexp">view = graphView.getView();            </span></span><br><span class="line"><span class="regexp">view.className = 'main';</span></span><br><span class="line"><span class="regexp">document.body.appendChild(view);    </span></span><br><span class="line"><span class="regexp">window.addEventListener('resize', function (e) &#123;</span></span><br><span class="line"><span class="regexp">   graphView.invalidate();</span></span><br><span class="line"><span class="regexp">&#125;, false);     </span></span><br><span class="line"><span class="regexp">node1 = new ht.Node();</span></span><br><span class="line"><span class="regexp">node1.setName('Node 1');</span></span><br><span class="line"><span class="regexp">node1.setStyleMap(&#123; /</span><span class="regexp">/ .s</span></span><br><span class="line"><span class="regexp">   'body.color': 'red',</span></span><br><span class="line"><span class="regexp">   'select.type': 'circle',</span></span><br><span class="line"><span class="regexp">   'select.padding': 3</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">node1.setAttrObject(&#123; /</span><span class="regexp">/ .a            </span></span><br><span class="line"><span class="regexp">   age: 35,</span></span><br><span class="line"><span class="regexp">   sex: 1,</span></span><br><span class="line"><span class="regexp">   hidden: false</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">node1.setPosition(100, 100);/</span><span class="regexp">/ .p</span></span><br><span class="line"><span class="regexp">dataModel.add(node1);</span></span><br><span class="line"><span class="regexp">dataModel.sm().ss(node1); /</span><span class="regexp">/ sm:getSelectionModel ss:setSelection</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="带属性（右侧编辑属性）"><a href="#带属性（右侧编辑属性）" class="headerlink" title="带属性（右侧编辑属性）"></a>带属性（右侧编辑属性）</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">            dataModel = <span class="keyword">new</span> ht.DataModel();</span><br><span class="line">            graphView = <span class="keyword">new</span> ht.graph.GraphView(dataModel);</span><br><span class="line">            propertyView = <span class="keyword">new</span> ht.widget.PropertyView(dataModel);<span class="comment">// 属性view</span></span><br><span class="line">            splitView = <span class="keyword">new</span> ht.widget.SplitView(graphView, propertyView);<span class="comment">// 分割（最多可传4个参数）</span></span><br><span class="line">  </span><br><span class="line">            view = splitView.getView();</span><br><span class="line">            view.className = <span class="string">'main'</span>;</span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(view);    </span><br><span class="line">            <span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">                splitView.invalidate();</span><br><span class="line">            &#125;, <span class="literal">false</span>);      </span><br><span class="line"></span><br><span class="line">propertyModel = propertyView.getPropertyModel();<span class="comment">// 属性model</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">var</span> property = <span class="keyword">new</span> ht.Property();</span><br><span class="line">            property.setName(<span class="string">'name'</span>);   </span><br><span class="line">            property.setDisplayName(<span class="string">'Name'</span>); </span><br><span class="line">            property.setAlign(<span class="string">'center'</span>);<span class="comment">// 中间对齐</span></span><br><span class="line">            property.setEditable(<span class="literal">true</span>);<span class="comment">// 可编辑</span></span><br><span class="line">            propertyModel.add(property);   </span><br><span class="line">            </span><br><span class="line">            property = <span class="keyword">new</span> ht.Property();</span><br><span class="line">            property.setName(<span class="string">'image'</span>);   </span><br><span class="line">            property.setDisplayName(<span class="string">'Image'</span>); </span><br><span class="line">            property.setEditable(<span class="literal">true</span>);</span><br><span class="line">            property.setEnum(&#123;                    </span><br><span class="line">                values: [<span class="string">'node_image'</span>, <span class="string">'group_image'</span>, <span class="string">'subGraph_image'</span>],</span><br><span class="line">                labels: [<span class="string">'Node'</span>, <span class="string">'Group'</span>, <span class="string">'SubGraph'</span>],</span><br><span class="line">                icons: [<span class="string">'node_icon'</span>, <span class="string">'group_icon'</span>, <span class="string">'subGraph_icon'</span>]</span><br><span class="line">            &#125;);  <span class="comment">// 下拉框</span></span><br><span class="line">            propertyModel.add(property);<span class="comment">//添加属性</span></span><br><span class="line"></span><br><span class="line">            property = <span class="keyword">new</span> ht.Property();</span><br><span class="line">            property.setName(<span class="string">'body.color'</span>);</span><br><span class="line">            property.setAccessType(<span class="string">'style'</span>);<span class="comment">// 属性类别 style</span></span><br><span class="line">            property.setValueType(<span class="string">'color'</span>);</span><br><span class="line">            property.setCategoryName(<span class="string">'Style Properties'</span>);<span class="comment">// 属性类别名称</span></span><br><span class="line">            propertyModel.add(property);</span><br><span class="line"></span><br><span class="line">            property = <span class="keyword">new</span> ht.Property();</span><br><span class="line">            property.setName(<span class="string">'age'</span>);</span><br><span class="line">            property.setDisplayName(<span class="string">'Age'</span>); </span><br><span class="line">            property.setAccessType(<span class="string">'attr'</span>);<span class="comment">// 属性类别 Attr</span></span><br><span class="line">            property.setValueType(<span class="string">'int'</span>);<span class="comment">// 值类型</span></span><br><span class="line">            property.setAlign(<span class="string">'right'</span>);</span><br><span class="line">            property.setEditable(<span class="literal">true</span>);</span><br><span class="line">            property.setCategoryName(<span class="string">'Attr Properties'</span>);<span class="comment">// 属性类别名称</span></span><br><span class="line">            propertyModel.add(property); </span><br><span class="line">            </span><br><span class="line">            property = <span class="keyword">new</span> ht.Property();</span><br><span class="line">            property.setName(<span class="string">'hidden'</span>);</span><br><span class="line">            property.setDisplayName(<span class="string">'Hidden this node'</span>); </span><br><span class="line">            property.setColor(<span class="string">'red'</span>);</span><br><span class="line">            property.setIcon(<span class="string">'images/alert.gif'</span>);<span class="comment">// 图标</span></span><br><span class="line">            property.setAccessType(<span class="string">'attr'</span>);</span><br><span class="line">            property.setValueType(<span class="string">'boolean'</span>);<span class="comment">// 布尔类型</span></span><br><span class="line">            property.setEditable(<span class="literal">true</span>);</span><br><span class="line">            property.setCategoryName(<span class="string">'Attr Properties'</span>);</span><br><span class="line">            propertyModel.add(property);       </span><br><span class="line"></span><br><span class="line">            property = <span class="keyword">new</span> ht.Property();</span><br><span class="line">            property.setName(<span class="string">'sex'</span>);</span><br><span class="line">            property.setDisplayName(<span class="string">'Sex'</span>); </span><br><span class="line">property.setColor(<span class="string">'red'</span>);<span class="comment">//颜色</span></span><br><span class="line">            property.setAccessType(<span class="string">'attr'</span>);                </span><br><span class="line">            property.setEditable(<span class="literal">true</span>);</span><br><span class="line">            property.setEnum([<span class="number">1</span>, <span class="number">2</span>], [<span class="string">'Male'</span>, <span class="string">'Female'</span>]); <span class="comment">// 下拉框</span></span><br><span class="line">            property.setCategoryName(<span class="string">'Attr Properties'</span>);<span class="comment">//属性类别名称</span></span><br><span class="line">            propertyModel.add(property);</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://hightopo.com/codeeditor/index.html?url=https://www.hightopo.com/guide/guide/core/propertyview/examples/example_property.html" target="_blank" rel="noopener"></a></p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>HT</category>
+      </categories>
+      <tags>
+        <tag>HT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javaScript深入之继承的多种方式和优缺点</title>
+    <url>/blog/2020/08/06/javaScript%E6%B7%B1%E5%85%A5%E4%B9%8B%E7%BB%A7%E6%89%BF%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
+    <content><![CDATA[<h2 id="JavaScript深入之继承的多种方式和优缺点"><a href="#JavaScript深入之继承的多种方式和优缺点" class="headerlink" title="JavaScript深入之继承的多种方式和优缺点"></a>JavaScript深入之继承的多种方式和优缺点</h2><p><a href="javascript:void(0);">前端大学</a><br>（给前端大学加星标，提升前端技能.）</p>
+<blockquote>
+<p>作者：mqyqingfeng</p>
+<p><a href="https://github.com/mqyqingfeng/Blog/issues/16" target="_blank" rel="noopener">https://github.com/mqyqingfeng/Blog/issues/16</a></p>
+</blockquote>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a><strong>写在前面</strong></h2><p>本文讲解JavaScript各种继承方式和优缺点。</p>
+<p>但是注意：</p>
+<p>这篇文章更像是笔记，哎，再让我感叹一句：《JavaScript高级程序设计》写得真是太好了！</p>
+<h2 id="1、原型链继承"><a href="#1、原型链继承" class="headerlink" title="1、原型链继承"></a><strong>1、原型链继承</strong></h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params"></span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">'kevin'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();</span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();</span><br><span class="line"><span class="built_in">console</span>.log(child1.getName()) <span class="comment">// kevin</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>问题：</strong></p>
+<p>1、引用类型的属性被所有实例共享，举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params"></span>) </span>&#123;    <span class="keyword">this</span>.names = [<span class="string">'kevin'</span>, <span class="string">'daisy'</span>];&#125;<span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params"></span>) </span>&#123;&#125;Child.prototype = <span class="keyword">new</span> Parent();<span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();child1.names.push(<span class="string">'yayu'</span>);<span class="built_in">console</span>.log(child1.names); <span class="comment">// ["kevin", "daisy", "yayu"]var child2 = new Child();console.log(child2.names); // ["kevin", "daisy", "yayu"]</span></span><br></pre></td></tr></table></figure>
+
+<p>2、在创建 Child 的实例时，不能向Parent传参</p>
+<h2 id="2、借用构造函数-经典继承"><a href="#2、借用构造函数-经典继承" class="headerlink" title="2、借用构造函数(经典继承)"></a><strong>2、借用构造函数(经典继承)</strong></h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params"></span>) </span>&#123;    <span class="keyword">this</span>.names = [<span class="string">'kevin'</span>, <span class="string">'daisy'</span>];&#125;<span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params"></span>) </span>&#123;    Parent.call(<span class="keyword">this</span>);&#125;<span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();child1.names.push(<span class="string">'yayu'</span>);<span class="built_in">console</span>.log(child1.names); <span class="comment">// ["kevin", "daisy", "yayu"]var child2 = new Child();console.log(child2.names); // ["kevin", "daisy"]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>优点：</strong></p>
+<p>1、避免了引用类型的属性被所有实例共享</p>
+<p>2、可以在 Child 中向 Parent 传参</p>
+<p><strong>举个例子：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params">name</span>) </span>&#123;    </span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">	Parent.call(<span class="keyword">this</span>, name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">'kevin'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(child1.name); <span class="comment">// kevin</span></span><br><span class="line"><span class="keyword">var</span> child2 = <span class="keyword">new</span> Child(<span class="string">'daisy'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(child2.name); <span class="comment">// daisy</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>缺点：</strong></p>
+<p>方法都在构造函数中定义，每次创建实例都会创建一遍方法。</p>
+<h2 id="3、组合继承"><a href="#3、组合继承" class="headerlink" title="3、组合继承"></a><strong>3、组合继承</strong></h2><p>原型链继承和经典继承双剑合璧。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params">name</span>) </span>&#123;    </span><br><span class="line"><span class="keyword">this</span>.name = name;    </span><br><span class="line"><span class="keyword">this</span>.colors = [<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'green'</span>];&#125;</span><br><span class="line">Parent.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;    </span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.name)&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    Parent.call(<span class="keyword">this</span>, name);        </span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();</span><br><span class="line">Child.prototype.constructor = Child;</span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">'kevin'</span>, <span class="string">'18'</span>);</span><br><span class="line">child1.colors.push(<span class="string">'black'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(child1.name); <span class="comment">// kevin</span></span><br><span class="line"><span class="built_in">console</span>.log(child1.age); <span class="comment">// 18</span></span><br><span class="line"><span class="built_in">console</span>.log(child1.colors); <span class="comment">// ["red", "blue", "green", "black"]</span></span><br><span class="line"><span class="keyword">var</span> child2 = <span class="keyword">new</span> Child(<span class="string">'daisy'</span>, <span class="string">'20'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(child2.name); <span class="comment">// daisy</span></span><br><span class="line"><span class="built_in">console</span>.log(child2.age); <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log(child2.colors); <span class="comment">// ["red", "blue", "green"]</span></span><br></pre></td></tr></table></figure>
+
+<p>优点：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。</p>
+<h2 id="4、原型式继承"><a href="#4、原型式继承" class="headerlink" title="4、原型式继承"></a><strong>4、原型式继承</strong></h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObj</span>(<span class="params">o</span>) </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;    </span><br><span class="line">    F.prototype = o;    </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就是 ES5 Object.create 的模拟实现，将传入的对象作为创建的对象的原型。</p>
+<p><strong>缺点：</strong></p>
+<p>包含引用类型的属性值始终都会共享相应的值，这点跟原型链继承一样。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;    </span><br><span class="line">    name: <span class="string">'kevin'</span>,    </span><br><span class="line">    friends: [<span class="string">'daisy'</span>, <span class="string">'kelly'</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = createObj(person);</span><br><span class="line"><span class="keyword">var</span> person2 = createObj(person);</span><br><span class="line">person1.name = <span class="string">'person1'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person2.name); <span class="comment">// kevin</span></span><br><span class="line">person1.firends.push(<span class="string">'taylor'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(person2.friends); <span class="comment">// ["daisy", "kelly", "taylor"]</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：修改<code>person1.name</code>的值，<code>person2.name</code>的值并未发生改变，并不是因为<code>person1</code>和<code>person2</code>有独立的 name 值，而是因为<code>person1.name = &#39;person1&#39;</code>，给<code>person1</code>添加了 name 值，并非修改了原型上的 name 值。</p>
+<h2 id="5、寄生式继承"><a href="#5、寄生式继承" class="headerlink" title="5、寄生式继承"></a><strong>5、寄生式继承</strong></h2><p>创建一个仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createObj</span> (<span class="params">o</span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> clone = <span class="built_in">Object</span>.create(o);    </span><br><span class="line">    clone.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">'hi'</span>); &#125;    </span><br><span class="line">    <span class="keyword">return</span> clone;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：跟借用构造函数模式一样，每次创建对象都会创建一遍方法。</p>
+<h2 id="6、寄生组合式继承"><a href="#6、寄生组合式继承" class="headerlink" title="6、寄生组合式继承"></a><strong>6、寄生组合式继承</strong></h2><p>为了方便大家阅读，在这里重复一下组合继承的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params">name</span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">this</span>.name = name;    </span><br><span class="line">    <span class="keyword">this</span>.colors = [<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'green'</span>];</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params">name, age</span>) </span>&#123;    </span><br><span class="line">    Parent.call(<span class="keyword">this</span>, name);    </span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();</span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">'kevin'</span>, <span class="string">'18'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(child1)</span><br></pre></td></tr></table></figure>
+
+<p>组合继承最大的缺点是会调用两次父构造函数。</p>
+<p>一次是设置子类型实例的原型的时候：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Child.prototype = <span class="keyword">new</span> Parent();</span><br></pre></td></tr></table></figure>
+
+<p>一次在创建子类型实例的时候：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">'kevin'</span>, <span class="string">'18'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>回想下 new 的模拟实现，其实在这句中，我们会执行：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Parent.call(<span class="keyword">this</span>, name);</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们又会调用了一次 Parent 构造函数。</p>
+<p>所以，在这个例子中，如果我们打印 child1 对象，我们会发现 Child.prototype 和 child1 都有一个属性为<code>colors</code>，属性值为<code>[&#39;red&#39;, &#39;blue&#39;, &#39;green&#39;]</code>。</p>
+<p>那么我们该如何精益求精，避免这一次重复调用呢？</p>
+<p>如果我们不使用 Child.prototype = new Parent() ，而是间接的让 Child.prototype 访问到 Parent.prototype 呢？</p>
+<p><strong>看看如何实现：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span> (<span class="params">name</span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">this</span>.name = name;    </span><br><span class="line">    <span class="keyword">this</span>.colors = [<span class="string">'red'</span>, <span class="string">'blue'</span>, <span class="string">'green'</span>];</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span> (<span class="params">name, age</span>) </span>&#123;    </span><br><span class="line">    Parent.call(<span class="keyword">this</span>, name);    </span><br><span class="line">    <span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;<span class="comment">// 关键的三步</span></span><br><span class="line"><span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">F.prototype = Parent.prototype;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> F();</span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">'kevin'</span>, <span class="string">'18'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(child1);</span><br></pre></td></tr></table></figure>
+
+<p>最后我们封装一下这个继承方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123;    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">    F.prototype = o;    </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prototype</span>(<span class="params">child, parent</span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> prototype = object(parent.prototype);    </span><br><span class="line">    prototype.constructor = child;    </span><br><span class="line">    child.prototype = prototype;</span><br><span class="line">&#125;<span class="comment">// 当我们使用的时候：prototype(Child, Parent);</span></span><br></pre></td></tr></table></figure>
+
+<p>引用《JavaScript高级程序设计》中对寄生组合式继承的夸赞就是：</p>
+<p>这种方式的高效率体现它只调用了一次 Parent 构造函数，并且因此避免了在 Parent.prototype 上面创建不必要的、多余的属性。与此同时，原型链还能保持不变；因此，还能够正常使用 instanceof 和 isPrototypeOf。开发人员普遍认为寄生组合式继承是引用类型最理想的继承范式。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>面向对象</category>
+      </categories>
+      <tags>
+        <tag>继承</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>javaScript设计模式</title>
+    <url>/blog/2020/08/06/javaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<h2 id="JavaScript设计模式"><a href="#JavaScript设计模式" class="headerlink" title="JavaScript设计模式"></a>JavaScript设计模式</h2><p><a href="javascript:void(0);">前端大学</a> <em>4月9日</em></p>
+<p>（给前端大学加星标，提升前端技能.）</p>
+<blockquote>
+<p>作者:考拉海购前端团队</p>
+<p><a href="https://juejin.im/post/59df4f74f265da430f311909" target="_blank" rel="noopener">https://juejin.im/post/59df4f74f265da430f311909</a></p>
+</blockquote>
+<p>设计模式的定义：在面向对象软件设计过程中针对特定问题的简洁而优雅的解决方案</p>
+<p>当然我们可以用一个通俗的说法：设计模式是解决某个特定场景下对某种问题的解决方案。因此，当我们遇到合适的场景时，我们可能会条件反射一样自然而然想到符合这种场景的设计模式。</p>
+<p>比如，当系统中某个接口的结构已经无法满足我们现在的业务需求，但又不能改动这个接口，因为可能原来的系统很多功能都依赖于这个接口，改动接口会牵扯到太多文件。因此应对这种场景，我们可以很快地想到可以用适配器模式来解决这个问题。</p>
+<p>下面介绍几种在JavaScript中常见的几种设计模式：</p>
+<h2 id="1、单例模式"><a href="#1、单例模式" class="headerlink" title="1、单例模式"></a><strong>1、单例模式</strong></h2><p><strong>单例模式的定义：</strong>保证一个类仅有一个实例，并提供一个访问它的全局访问点。实现的方法为先判断实例存在与否，如果存在则直接返回，如果不存在就创建了再返回，这就确保了一个类只有一个实例对象。</p>
+<p>适用场景：一个单一对象。比如：弹窗，无论点击多少次，弹窗只应该被创建一次。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CreateUser</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;        </span><br><span class="line">    <span class="keyword">this</span>.name = name;        </span><br><span class="line">    <span class="keyword">this</span>.getName();    </span><br><span class="line">	&#125;    </span><br><span class="line">	getName() &#123;         <span class="keyword">return</span> <span class="keyword">this</span>.name;    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 代理实现单例模式</span></span><br><span class="line"><span class="keyword">var</span> ProxyMode = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">	<span class="keyword">var</span> instance = <span class="literal">null</span>;    </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;        </span><br><span class="line">        <span class="keyword">if</span>(!instance) &#123;            </span><br><span class="line">        instance = <span class="keyword">new</span> CreateUser(name);        </span><br><span class="line">        &#125;       </span><br><span class="line">        <span class="keyword">return</span> instance;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">// 测试单体模式的实例</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> ProxyMode(<span class="string">"aaa"</span>);</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> ProxyMode(<span class="string">"bbb"</span>);</span><br><span class="line"><span class="comment">// 因为单体模式是只实例化一次，所以下面的实例是相等的</span></span><br><span class="line"><span class="built_in">console</span>.log(a === b);    <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、策略模式"><a href="#2、策略模式" class="headerlink" title="2、策略模式"></a><strong>2、策略模式</strong></h2><p>策略模式的定义：定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。</p>
+<p>策略模式的目的就是将算法的使用算法的实现分离开来。</p>
+<p>一个基于策略模式的程序至少由两部分组成。第一个部分是一组策略类（可变），策略类封装了具体的算法，并负责具体的计算过程。第二个部分是环境类Context（不变），Context接受客户的请求，随后将请求委托给某一个策略类。要做到这一点，说明Context中要维持对某个策略对象的引用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*策略类*/</span></span><br><span class="line"><span class="keyword">var</span> levelOBJ = &#123;    </span><br><span class="line"><span class="string">"A"</span>: <span class="function"><span class="keyword">function</span>(<span class="params">money</span>) </span>&#123;        <span class="keyword">return</span> money * <span class="number">4</span>;    &#125;,    </span><br><span class="line"><span class="string">"B"</span> : <span class="function"><span class="keyword">function</span>(<span class="params">money</span>) </span>&#123;        <span class="keyword">return</span> money * <span class="number">3</span>;    &#125;,    </span><br><span class="line"><span class="string">"C"</span> : <span class="function"><span class="keyword">function</span>(<span class="params">money</span>) </span>&#123;        <span class="keyword">return</span> money * <span class="number">2</span>;    &#125; </span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*环境类*/</span></span><br><span class="line"><span class="keyword">var</span> calculateBouns =<span class="function"><span class="keyword">function</span>(<span class="params">level,money</span>) </span>&#123;    </span><br><span class="line"><span class="keyword">return</span> levelOBJ[level](money);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(calculateBouns(<span class="string">'A'</span>,<span class="number">10000</span>)); <span class="comment">// 40000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3、代理模式"><a href="#3、代理模式" class="headerlink" title="3、代理模式"></a><strong>3、代理模式</strong></h2><p><strong>代理模式的定义：</strong>为一个对象提供一个代用品或占位符，以便控制对它的访问。</p>
+<p>常用的虚拟代理形式：某一个花销很大的操作，可以通过虚拟代理的方式延迟到这种需要它的时候才去创建（例：使用虚拟代理实现图片懒加载）</p>
+<p>图片懒加载的方式：先通过一张loading图占位，然后通过异步的方式加载图片，等图片加载好了再把完成的图片加载到img标签里面。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> imgFunc = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> imgNode = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>);   	</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(imgNode);    </span><br><span class="line">    <span class="keyword">return</span> &#123;        </span><br><span class="line">    setSrc: <span class="function"><span class="keyword">function</span>(<span class="params">src</span>) </span>&#123;            imgNode.src = src;        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="keyword">var</span> proxyImage = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();    </span><br><span class="line">    img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;        imgFunc.setSrc(<span class="keyword">this</span>.src);    &#125;   </span><br><span class="line">    <span class="keyword">return</span> &#123;        </span><br><span class="line">        setSrc: <span class="function"><span class="keyword">function</span>(<span class="params">src</span>) </span>&#123;           </span><br><span class="line">            imgFunc.setSrc(<span class="string">'./loading,gif'</span>);       </span><br><span class="line">            img.src = src;        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">proxyImage.setSrc(<span class="string">'./pic.png'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用代理模式实现图片懒加载的优点还有符合单一职责原则。减少一个类或方法的粒度和耦合度。</p>
+<h2 id="4、中介者模式"><a href="#4、中介者模式" class="headerlink" title="4、中介者模式"></a><strong>4、中介者模式</strong></h2><p><strong>中介者模式的定义：</strong>通过一个中介者对象，其他所有的相关对象都通过该中介者对象来通信，而不是相互引用，当其中的一个对象发生改变时，只需要通知中介者对象即可。通过中介者模式可以解除对象与对象之间的紧耦合关系。</p>
+<p>例如：现实生活中，航线上的飞机只需要和机场的塔台通信就能确定航线和飞行状态，而不需要和所有飞机通信。同时塔台作为中介者，知道每架飞机的飞行状态，所以可以安排所有飞机的起降和航线安排。</p>
+<p>中介者模式适用的场景：例如购物车需求，存在商品选择表单、颜色选择表单、购买数量表单等等，都会触发change事件，那么可以通过中介者来转发处理这些事件，实现各个事件间的解耦，仅仅维护中介者对象即可。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> goods = &#123;   <span class="comment">//手机库存    </span></span><br><span class="line"><span class="string">'red|32G'</span>: <span class="number">3</span>,    </span><br><span class="line"><span class="string">'red|64G'</span>: <span class="number">1</span>,    </span><br><span class="line"><span class="string">'blue|32G'</span>: <span class="number">7</span>,    </span><br><span class="line"><span class="string">'blue|32G'</span>: <span class="number">6</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//中介者var </span></span><br><span class="line">mediator = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> colorSelect = <span class="built_in">document</span>.getElementById(<span class="string">'colorSelect'</span>);    </span><br><span class="line">    <span class="keyword">var</span> memorySelect = <span class="built_in">document</span>.getElementById(<span class="string">'memorySelect'</span>);    </span><br><span class="line">    <span class="keyword">var</span> numSelect = <span class="built_in">document</span>.getElementById(<span class="string">'numSelect'</span>);    </span><br><span class="line">    <span class="keyword">return</span> &#123;        </span><br><span class="line">        changed: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;            </span><br><span class="line">            <span class="keyword">switch</span>(obj)&#123;                </span><br><span class="line">            <span class="keyword">case</span> colorSelect:                    <span class="comment">//TODO</span></span><br><span class="line">            <span class="keyword">break</span>;                </span><br><span class="line">            <span class="keyword">case</span> memorySelect:                    <span class="comment">//TODO  </span></span><br><span class="line">            <span class="keyword">break</span>;                </span><br><span class="line">            <span class="keyword">case</span> numSelect:                    <span class="comment">//TODO                    </span></span><br><span class="line">            <span class="keyword">break</span>;            </span><br><span class="line">            &#125;        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">colorSelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    mediator.changed(<span class="keyword">this</span>);&#125;;</span><br><span class="line">memorySelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    mediator.changed(<span class="keyword">this</span>);&#125;;</span><br><span class="line">numSelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    mediator.changed(<span class="keyword">this</span>);&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、装饰者模式"><a href="#5、装饰者模式" class="headerlink" title="5、装饰者模式"></a><strong>5、装饰者模式</strong></h2><p><strong>装饰者模式的定义：</strong>在不改变对象自身的基础上，在程序运行期间给对象动态地添加方法。</p>
+<p>例如：现有4种型号的自行车分别被定义成一个单独的类，如果给每辆自行车都加上前灯、尾灯、铃铛这3个配件，如果用类继承的方式，需要创建4*3=12个子类。但如果通过装饰者模式，只需要创建3个类。</p>
+<p>装饰者模式适用的场景：原有方法维持不变，在原有方法上再挂载其他方法来满足现有需求；函数的解耦，将函数拆分成多个可复用的函数，再将拆分出来的函数挂载到某个函数上，实现相同的效果但增强了复用性。</p>
+<p>例：用AOP装饰函数实现装饰者模式</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.before = <span class="function"><span class="keyword">function</span>(<span class="params">beforefn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;    <span class="comment">//保存原函数引用    </span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//返回包含了原函数和新函数的 '代理函数'</span></span><br><span class="line">	beforefn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);    <span class="comment">//执行新函数，修正this        </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);  <span class="comment">//执行原函数    </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Function</span>.prototype.after = <span class="function"><span class="keyword">function</span>(<span class="params">afterfn</span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;    </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;        </span><br><span class="line">        <span class="keyword">var</span> ret = self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);        </span><br><span class="line">        afterfn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);        </span><br><span class="line">        <span class="keyword">return</span> ret;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'2'</span>);&#125;<span class="comment">//func1和func3为挂载函数</span></span><br><span class="line"><span class="keyword">var</span> func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    <span class="built_in">console</span>.log(<span class="string">'1'</span>);&#125;</span><br><span class="line"><span class="keyword">var</span> func3 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    <span class="built_in">console</span>.log(<span class="string">'3'</span>);&#125;</span><br><span class="line">func = func.before(func1).after(func3);</span><br><span class="line">func();</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+        <category>面向对象</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>react-redux</title>
+    <url>/blog/2020/08/06/react-redux/</url>
+    <content><![CDATA[<blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3></blockquote>
+<p>场景: </p>
+<ol>
+<li><p>state其实就是一个对象,state的各种属性是用来共享的数据</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  		num: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<blockquote>
+<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3></blockquote>
+<p>2.是把数据从应用传递到数据的唯一来源(我理解的就是事件描述:事件名type和其他可能包括新状态属性的参数),通过store.dispatch()调用该函数</p>
+   <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type: <span class="string">'ADD'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h3></blockquote>
+<ol start="3">
+<li><p>更新state的多个事件或者说是方法的集合,接收更新前的state和action(根据action返回的type类型,执行对应动作,返回新的state),以更新state</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">counter</span> (<span class="params">state=&#123;默认值&#125;, action</span>) </span>&#123;</span><br><span class="line"> <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line"> <span class="keyword">case</span> <span class="string">'ADD'</span>:</span><br><span class="line">   <span class="keyword">return</span> &#123;</span><br><span class="line">     ...state,</span><br><span class="line">     num: state.num + <span class="number">1</span></span><br><span class="line">   &#125;</span><br><span class="line"> <span class="keyword">case</span> <span class="string">'MINUS'</span>:</span><br><span class="line">   <span class="keyword">return</span> &#123;</span><br><span class="line">     ...state,</span><br><span class="line">     num: state.num - <span class="number">1</span></span><br><span class="line">   &#125;</span><br><span class="line"> <span class="keyword">default</span>:</span><br><span class="line">   <span class="keyword">return</span> state</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3></blockquote>
+</li>
+<li><p>将多个reducer进行合并,保存到store</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware,combineReducers &#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> thunkMiddleware <span class="keyword">from</span> <span class="string">'redux-thunk'</span></span><br><span class="line"><span class="keyword">import</span> &#123; createLogger &#125; <span class="keyword">from</span> <span class="string">'redux-logger'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> counter <span class="keyword">from</span> <span class="string">'./counter/reducers'</span> <span class="comment">//reducer1</span></span><br><span class="line"><span class="keyword">import</span> login <span class="keyword">from</span> <span class="string">'./login/reducers'</span>  <span class="comment">//reducer2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootReducer = combineReducers(&#123;</span><br><span class="line">  counter,</span><br><span class="line">  login</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> middlewares = [</span><br><span class="line">  thunkMiddleware,</span><br><span class="line">  createLogger()</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">configStore</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> store = createStore(rootReducer, applyMiddleware(...middlewares))</span><br><span class="line">  <span class="keyword">return</span> store</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在项目入口使用store</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">		<span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'@tarojs/redux'</span></span><br><span class="line">		</span><br><span class="line">			&lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">         	&lt;Index /&gt;</span><br><span class="line">&lt;<span class="regexp">/Provider&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>项目内dispatch</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">   <span class="keyword">import</span> &#123; counter &#125; <span class="keyword">from</span> <span class="string">'../../store/counter/actions'</span></span><br><span class="line">    @connect(<span class="function">(<span class="params">&#123; login &#125;</span>) =&gt;</span> (&#123;</span><br><span class="line">      login</span><br><span class="line">    &#125;), (dispatch) =&gt; (&#123;</span><br><span class="line">    <span class="comment">//传递事件onSubmit到当前组件</span></span><br><span class="line">      onSubmit1(data, fn) &#123;</span><br><span class="line">        dispatch(counter(data))</span><br><span class="line">      &#125;,</span><br><span class="line"><span class="comment">/*   onSubmit2(data, fn) &#123;</span></span><br><span class="line"><span class="comment">       //submit可以为一个promise的请求等异步操作   </span></span><br><span class="line"><span class="comment">       dispatch(submit(data)).then(res =&gt; &#123;</span></span><br><span class="line"><span class="comment">         if (fn)</span></span><br><span class="line"><span class="comment">           fn(res)</span></span><br><span class="line"><span class="comment">       &#125;)</span></span><br><span class="line"><span class="comment">      &#125;,</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">    &#125;))</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>React</category>
+      </categories>
+      <tags>
+        <tag>react-redux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>npm常用命令</title>
+    <url>/blog/2020/08/06/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<p>清除npm资源缓存</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm cache clean -f</span><br></pre></td></tr></table></figure>
+<p>用代码更改npm的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm config set registry http:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>查看远程包版本信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm info &lt;packageName&gt;</span><br></pre></td></tr></table></figure>
+<p>查看本地包版本信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm info &lt;packageName&gt;</span><br></pre></td></tr></table></figure>
+<p>安装nrm</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g nrm</span><br></pre></td></tr></table></figure>
+<p>查看镜像列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nrm ls</span><br></pre></td></tr></table></figure>
+<p>在nrm添加自己的镜像地址s</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nrm add resource_name resource_url</span><br></pre></td></tr></table></figure>
+<p>切换镜像</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nrm use taobao</span><br></pre></td></tr></table></figure>
+<p>删除</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nrm del r_name</span><br></pre></td></tr></table></figure>
+<p>测试镜像的相应速度</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nrm test r_name</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Npm</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+        <tag>nrm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>react之Context</title>
+    <url>/blog/2020/08/06/react%E4%B9%8BContext/</url>
+    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; createContext &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">const</span> Test = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(props)  <span class="comment">// &#123;a: 1&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(props.a) <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>ddddddddddd<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> Context = createContext();</span><br><span class="line"><span class="built_in">console</span>.log(Context)</span><br><span class="line"><span class="keyword">const</span> TestPage = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> store = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Context.Provider value=&#123;store&#125;&gt;</span><br><span class="line">      &lt;Context.Consumer&gt;</span><br><span class="line">        &#123;store =&gt; <span class="xml"><span class="tag">&lt;<span class="name">Test</span> &#123;<span class="attr">...store</span>&#125; /&gt;</span></span>&#125;</span><br><span class="line">      &lt;<span class="regexp">/Context.Consumer&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;</span></span><br><span class="line"><span class="regexp">        测试页面</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    &lt;<span class="regexp">/Context.Provider&gt;</span></span><br><span class="line"><span class="regexp">  )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">export default TestPage;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; createContext, useContext &#125; <span class="keyword">from</span> <span class="string">'react'</span></span><br><span class="line"><span class="keyword">const</span> Test = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; a &#125; = useContext(Context);</span><br><span class="line">  <span class="built_in">console</span>.log(a) <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>ddddddddddd<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> Context = createContext();</span><br><span class="line"><span class="keyword">const</span> TestPage = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> store = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Context.Provider value=&#123;store&#125;&gt;</span><br><span class="line">      &lt;Test /&gt;</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        测试页面</span><br><span class="line">          &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Context.Provider&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>React</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>react之setState</title>
+    <url>/blog/2020/08/06/react%E4%B9%8BsetState/</url>
+    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//批量执行</span></span><br><span class="line">state = &#123;<span class="attr">count</span>: <span class="number">1</span>&#125;</span><br><span class="line"><span class="comment">// 只会执行一次 count=2（除非传入第二个参数回调函数）</span></span><br><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">	count: <span class="keyword">this</span>.state.count+<span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">	count: <span class="keyword">this</span>.state.count+<span class="number">1</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">	count: <span class="keyword">this</span>.state.count+<span class="number">1</span></span><br><span class="line">&#125;) <span class="comment">//执行此动作</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 多次执行 count=4</span></span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		count: prevState.count+<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		count: prevState.count+<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		count: prevState.count+<span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+        <category>React</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue父子传参场景集锦</title>
+    <url>/blog/2017/12/14/vue%E7%88%B6%E5%AD%90%E4%BC%A0%E5%8F%82%E5%9C%BA%E6%99%AF%E9%9B%86%E9%94%A6/</url>
+    <content><![CDATA[<h1 id="vue父子传参场景集锦-一"><a href="#vue父子传参场景集锦-一" class="headerlink" title="vue父子传参场景集锦(一)"></a>vue父子传参场景集锦(一)</h1><blockquote>
+<h3 id="父传子数据-子修改数据-父不改"><a href="#父传子数据-子修改数据-父不改" class="headerlink" title="父传子数据,子修改数据,父不改"></a>父传子数据,子修改数据,父不改</h3></blockquote>
+<p>场景: 列表(父组件)点击,弹出表单并传递当前行数据到表单(子组件),表单使用双向绑定(elementUI el-form),需求是实现表单可编辑(v-model),且不修改列表数据(取消时列表数据未变).</p>
+<ol>
+<li><p>直接使用props属性内数据,可以实现表单和列表数据修改同步(不符子不改父的原则),切换点击行时可以同步当前行数据</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">  &lt;Edit :articleForm=<span class="string">'rowData'</span> /&gt;<span class="comment">//父调用子组件 rowData:&#123;title:"xx",content:"xx"&#125;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  		data() &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			rowData:&#123;&#125;,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods()&#123;</span><br><span class="line">	   	edit(row) &#123;<span class="comment">//行点击事件</span></span><br><span class="line">               <span class="keyword">this</span>.rowData = row;</span><br><span class="line">           &#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form :model=<span class="string">"articleForm"</span> ref=<span class="string">'articleForm'</span>&gt;<span class="comment">//子组件</span></span><br><span class="line">	&lt;el-form-item label=<span class="string">"标题"</span>&gt;</span><br><span class="line">		&lt;el-input v-model=<span class="string">"articleForm.title"</span> placeholder=<span class="string">"请输入标题"</span>&gt;&lt;<span class="regexp">/el-input&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>el-form-item&gt;</span><br><span class="line">&lt;<span class="regexp">/el-form&gt;</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">	data() &#123;</span></span><br><span class="line"><span class="regexp">		return &#123;</span></span><br><span class="line"><span class="regexp">		&#125;;</span></span><br><span class="line"><span class="regexp">	&#125;,</span></span><br><span class="line"><span class="regexp">	props: [</span></span><br><span class="line"><span class="regexp">		'articleForm',</span></span><br><span class="line"><span class="regexp">		'type',</span></span><br><span class="line"><span class="regexp">		'reload'</span></span><br><span class="line"><span class="regexp">	],</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>在data里将父组件传递的数据进行一次赋值(别名),实现父子组件取消双向绑定(Object.assign).(无法在切换行时将父组件传递的props同步到articleForm数据)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">  &lt;Edit :rowData=<span class="string">'rowData'</span> /&gt;<span class="comment">//父调用子组件 rowData:&#123;title:"xx",content:"xx"&#125;</span></span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  		data() &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			rowData:&#123;&#125;,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods()&#123;</span><br><span class="line">	   	edit(row) &#123;<span class="comment">//行点击事件,copy行数据</span></span><br><span class="line">               <span class="keyword">this</span>.rowData = row;</span><br><span class="line">           &#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;el-form :model=<span class="string">"articleForm"</span> ref=<span class="string">'articleForm'</span>&gt;<span class="comment">//子组件</span></span><br><span class="line">	&lt;el-form-item label=<span class="string">"标题"</span>&gt;</span><br><span class="line">		&lt;el-input v-model=<span class="string">"articleForm.title"</span> placeholder=<span class="string">"请输入标题"</span>&gt;&lt;<span class="regexp">/el-input&gt;</span></span><br><span class="line"><span class="regexp">	&lt;/</span>el-form-item&gt;</span><br><span class="line">&lt;<span class="regexp">/el-form&gt;</span></span><br><span class="line"><span class="regexp">export default &#123;</span></span><br><span class="line"><span class="regexp">	data() &#123;</span></span><br><span class="line"><span class="regexp">		return &#123;</span></span><br><span class="line"><span class="regexp">			/</span><span class="regexp">/articleForm:this.rowData,/</span><span class="regexp">/别名</span></span><br><span class="line"><span class="regexp">			articleForm:Object.assign(&#123;&#125;,this.rowData)/</span><span class="regexp">/别名,并避免绑定</span></span><br><span class="line"><span class="regexp">		&#125;;</span></span><br><span class="line"><span class="regexp">	&#125;,</span></span><br><span class="line"><span class="regexp">	props: [</span></span><br><span class="line"><span class="regexp">		'rowData',</span></span><br><span class="line"><span class="regexp">		'type',</span></span><br><span class="line"><span class="regexp">		'reload'</span></span><br><span class="line"><span class="regexp">	],</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>props接受数据,使用computed赋值,实现切换行更改articleForm.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">  &lt;Edit :rowData=<span class="string">'rowData'</span> /&gt;<span class="comment">//父调用子组件 rowData:&#123;title:"xx",content:"xx"&#125;</span></span><br><span class="line">   <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  		data() &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			rowData:&#123;&#125;,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods()&#123;</span><br><span class="line">	   	edit(row) &#123;<span class="comment">//行点击事件</span></span><br><span class="line">               <span class="keyword">this</span>.rowData = row;</span><br><span class="line">           &#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">  &lt;el-form :model=<span class="string">"articleForm"</span> ref=<span class="string">'articleForm'</span>&gt;<span class="comment">//子组件</span></span><br><span class="line">  	&lt;el-form-item label=<span class="string">"标题"</span>&gt;</span><br><span class="line">  		&lt;el-input v-model=<span class="string">"articleForm.title"</span> placeholder=<span class="string">"请输入标题"</span>&gt;&lt;<span class="regexp">/el-input&gt;</span></span><br><span class="line"><span class="regexp">  	&lt;/</span>el-form-item&gt;</span><br><span class="line">  &lt;<span class="regexp">/el-form&gt;</span></span><br><span class="line"><span class="regexp">  export default &#123;</span></span><br><span class="line"><span class="regexp">       data() &#123;</span></span><br><span class="line"><span class="regexp">           return &#123;</span></span><br><span class="line"><span class="regexp">           &#125;;</span></span><br><span class="line"><span class="regexp">       &#125;,</span></span><br><span class="line"><span class="regexp">       props: [</span></span><br><span class="line"><span class="regexp">           'rowData',</span></span><br><span class="line"><span class="regexp">           'type',</span></span><br><span class="line"><span class="regexp">           'reload'</span></span><br><span class="line"><span class="regexp">       ],</span></span><br><span class="line"><span class="regexp">       computed: &#123;</span></span><br><span class="line"><span class="regexp">           articleForm: function() &#123;</span></span><br><span class="line"><span class="regexp">            	/</span><span class="regexp">/return this.rowData/</span><span class="regexp">/切换行可以同步父组件传递的新数据,且子组件会更改父组件数据,等同于方案1</span></span><br><span class="line"><span class="regexp">               return Object.assign(&#123;&#125;,this.rowData)/</span><span class="regexp">/切换行可以同步父组件传递的新数据,但子组件无法编辑数据</span></span><br><span class="line"><span class="regexp">           &#125;</span></span><br><span class="line"><span class="regexp">       &#125;,</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在data里将父组件传递的数据进行copy,实现父子组件取消双向绑定.使用watch监听实现切换行时将父组件数据同步到articleForm数据,符合需求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">  &lt;Edit :rowData=<span class="string">'rowData'</span> /&gt;<span class="comment">//父调用子组件 rowData:&#123;title:"xx",content:"xx"&#125;</span></span><br><span class="line">   <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  		data() &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			rowData:&#123;&#125;,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods()&#123;</span><br><span class="line">	   	edit(row) &#123;<span class="comment">//行点击事件</span></span><br><span class="line">               <span class="keyword">this</span>.rowData = row;</span><br><span class="line">           &#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"> &lt;el-form :model=<span class="string">"articleForm"</span> ref=<span class="string">'articleForm'</span>&gt;<span class="comment">//子组件</span></span><br><span class="line"> 	&lt;el-form-item label=<span class="string">"标题"</span>&gt;</span><br><span class="line"> 		&lt;el-input v-model=<span class="string">"articleForm.title"</span> placeholder=<span class="string">"请输入标题"</span>&gt;&lt;<span class="regexp">/el-input&gt;</span></span><br><span class="line"><span class="regexp"> 	&lt;/</span>el-form-item&gt;</span><br><span class="line"> &lt;<span class="regexp">/el-form&gt;</span></span><br><span class="line"><span class="regexp"> export default &#123;</span></span><br><span class="line"><span class="regexp"> 	data() &#123;</span></span><br><span class="line"><span class="regexp"> 		return &#123;</span></span><br><span class="line"><span class="regexp"> 			img_file: [],</span></span><br><span class="line"><span class="regexp"> 			articleForm:&#123;&#125;</span></span><br><span class="line"><span class="regexp"> 			/</span><span class="regexp">/articleForm:Object.assign(&#123;&#125;,this.rowData)/</span><span class="regexp">/别名,并copy</span></span><br><span class="line"><span class="regexp"> 		&#125;;</span></span><br><span class="line"><span class="regexp"> 	&#125;,</span></span><br><span class="line"><span class="regexp"> 	props: [</span></span><br><span class="line"><span class="regexp"> 		'rowData',</span></span><br><span class="line"><span class="regexp"> 		'type',</span></span><br><span class="line"><span class="regexp"> 		'reload'</span></span><br><span class="line"><span class="regexp"> 	],</span></span><br><span class="line"><span class="regexp"> 	watch:&#123;</span></span><br><span class="line"><span class="regexp">       rowData: &#123;</span></span><br><span class="line"><span class="regexp">           deep: true,</span></span><br><span class="line"><span class="regexp">           immediate: true,/</span><span class="regexp">/立刻监听,不用在data里进行第一次赋值</span></span><br><span class="line"><span class="regexp">           handler: function (val, oldVal) &#123; </span></span><br><span class="line"><span class="regexp">               this.articleForm = Object.assign(&#123;&#125;,val);</span></span><br><span class="line"><span class="regexp">           &#125;,</span></span><br><span class="line"><span class="regexp">       &#125;</span></span><br><span class="line"><span class="regexp">&#125;,</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>在父组件进行数据源深copy,子组件就可以随意了,符合需求(最佳)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">  &lt;Edit :articleForm=<span class="string">'rowData'</span> /&gt;<span class="comment">//父调用子组件 rowData:&#123;title:"xx",content:"xx"&#125;</span></span><br><span class="line">  	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  		data() &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			rowData:&#123;&#125;,</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	methods()&#123;</span><br><span class="line">	   	edit(row) &#123;<span class="comment">//行点击事件,copy行数据</span></span><br><span class="line">               <span class="keyword">this</span>.rowData = <span class="built_in">Object</span>.assign(&#123;&#125;,row);</span><br><span class="line">           &#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">  &lt;el-form :model=<span class="string">"articleForm"</span> ref=<span class="string">'articleForm'</span>&gt;<span class="comment">//子组件</span></span><br><span class="line">  	&lt;el-form-item label=<span class="string">"标题"</span>&gt;</span><br><span class="line">  		&lt;el-input v-model=<span class="string">"articleForm.title"</span> placeholder=<span class="string">"请输入标题"</span>&gt;&lt;<span class="regexp">/el-input&gt;</span></span><br><span class="line"><span class="regexp">  	&lt;/</span>el-form-item&gt;</span><br><span class="line">  &lt;<span class="regexp">/el-form&gt;</span></span><br><span class="line"><span class="regexp">  export default &#123;</span></span><br><span class="line"><span class="regexp">  	data() &#123;</span></span><br><span class="line"><span class="regexp">  		return &#123;</span></span><br><span class="line"><span class="regexp">  			img_file: [],</span></span><br><span class="line"><span class="regexp">  		&#125;;</span></span><br><span class="line"><span class="regexp">  	&#125;,</span></span><br><span class="line"><span class="regexp">  	props: [</span></span><br><span class="line"><span class="regexp">  		'articleForm',//或者使用computed赋值(改名)</span></span><br><span class="line"><span class="regexp">  		'type',</span></span><br><span class="line"><span class="regexp">  		'reload'</span></span><br><span class="line"><span class="regexp">  	],</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Vue</category>
+      </categories>
+      <tags>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前端应该会的23个linux常用命令</title>
+    <url>/blog/2018/01/10/%E5%89%8D%E7%AB%AF%E5%BA%94%E8%AF%A5%E4%BC%9A%E7%9A%8423%E4%B8%AAlinux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="1、ls-命令-显示目录内容列表"><a href="#1、ls-命令-显示目录内容列表" class="headerlink" title="1、ls 命令 : 显示目录内容列表"></a>1、ls 命令 : 显示目录内容列表</h2><p>Linux ls 命令用于显示指定工作目录下之内容（列出目前工作目录所含之文件及子目录)。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ls [-alrtAFR] [name...]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options"><a href="#常用-options" class="headerlink" title="常用 options"></a>常用 options</h3><ul>
+<li>-a 显示所有文件及目录 (ls 内定将文件名或目录名称开头为”.”的视为隐藏档，不会列出)</li>
+<li>-A 同 -a ,但不列出 “.” (目前目录) 及 “..” (父目录)</li>
+<li>-R 若目录下有文件,则以下之文件亦皆依序列出</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXiciaz9GKQicnztPXBDQFSmP9EyO4FWMDQCibqDNKda9YwYpgU3uYgL6IU5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="ls-example.png"></p>
+<h2 id="2、rm-命令-删除文件-目录"><a href="#2、rm-命令-删除文件-目录" class="headerlink" title="2、rm 命令 : 删除文件/目录"></a>2、rm 命令 : 删除文件/目录</h2><p>Linux rm 命令用于删除一个文件或者目录。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rm [options] [name...]</span><br></pre></td></tr></table></figure>
+
+<h3 id="options"><a href="#options" class="headerlink" title="options:"></a><strong>options:</strong></h3><ul>
+<li>-i 删除前逐一询问确认</li>
+<li>-r 或-R：递归处理，将指定目录下的所有文件与子目录一并处理</li>
+<li>-f：强制删除文件或目录</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicd2E651EgurUmagE4Vr7klGbkVpwDpibKKTny4EYpO6LibYaT3r9guoCw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="rm-example.png"></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicib6tZowDE15ZYaP1F8foz1iaZLvYUszZHaSBKRVPcSKcCTmtYCge1wsg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="rm.png"></p>
+<h2 id="3、tail-命令-查看文件内容"><a href="#3、tail-命令-查看文件内容" class="headerlink" title="3、tail 命令 : 查看文件内容"></a>3、tail 命令 : 查看文件内容</h2><p>tail 命令可用于查看文件的内容，有一个常用的参数 <strong>-f</strong> 常用于查阅正在改变的日志文件。</p>
+<p><strong>tail -f filename</strong> 会把 filename 文件里的最尾部的内容显示在屏幕上，并且不断刷新，只要 filename 更新就可以看到最新的文件内容。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tail [options][file]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-1"><a href="#常用-options-1" class="headerlink" title="常用 options:"></a>常用 options:</h3><ul>
+<li>-f 循环读取</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicSOhBAQA8FGTWKE3Ria005nCGng9VEhAelb1rvAh6XNKdbzgYP7FFvfw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="tail-example.png"></p>
+<h2 id="4、mv-命令-文件移动-改名"><a href="#4、mv-命令-文件移动-改名" class="headerlink" title="4、mv 命令 : 文件移动/改名"></a><strong>4、mv 命令 : 文件移动/改名</strong></h2><p>Linux mv 命令用来为文件或目录改名、或将文件或目录移入其它位置。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mv [options] source dest</span><br><span class="line"># or</span><br><span class="line">mv [options] source... directory</span><br></pre></td></tr></table></figure>
+
+<h3 id="options-1"><a href="#options-1" class="headerlink" title="options:"></a><strong>options:</strong></h3><ul>
+<li>-i: 若指定目录已有同名文件，则先询问是否覆盖旧文件</li>
+<li>-f: 在 mv 操作要覆盖某已有的目标文件时不给任何指示</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicjzOovSAqeIGa3TzyOTNT8xnAkibk4h5NmfgE92n5KYpkCkJeOybnoyA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicwOH2HFDnz01jiaPz0GOkwOiaQL5WxTiaNAoibplP0ACx1NbcLj9DJkJIOg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="mv-example.png"></p>
+<h2 id="5、-touch-命令-新建文件"><a href="#5、-touch-命令-新建文件" class="headerlink" title="5、 touch 命令 : 新建文件"></a><strong>5、 touch 命令 : 新建文件</strong></h2><p>Linux touch 命令用于修改文件或者目录的时间属性,包括存取时间和更改时间。若文件不存在,系统会建立一个新的文件。</p>
+<p>ls -l 可以显示档案的时间记录。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">touch [file]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXiciaPibkLMu2vnR2ibq3wT4LdQicF8SzMp13WS9LBdPWicGg9ICDHiacXoMbgw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="touch-example.png"></p>
+<h2 id="6、which-命令-查找文件"><a href="#6、which-命令-查找文件" class="headerlink" title="6、which 命令 : 查找文件"></a>6、which 命令 : 查找文件</h2><p>which 指令会在环境变量&dollar;PATH 设置的目录里查找符合条件的文件。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">which [file...]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXichkcyiaogyuLb2mn0uuPrMx2IyiaFsYia6iaoSk1TAVGsjPTCqsjnTWprWA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="which-example.png"></p>
+<h2 id="7、cp-命令-复制文件-目录"><a href="#7、cp-命令-复制文件-目录" class="headerlink" title="7、cp 命令 : 复制文件/目录"></a>7、cp 命令 : 复制文件/目录</h2><p>Linux cp 命令主要用于复制文件或目录。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cp [options] source dest</span><br><span class="line"># or</span><br><span class="line">cp [options] source... directory</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-2"><a href="#常用-options-2" class="headerlink" title="常用 options:"></a>常用 options:</h3><ul>
+<li>-f：覆盖已经存在的目标文件而不给出提示。</li>
+<li>-r：若给出的源文件是一个目录文件,此时将复制该目录下所有的子目录和文件。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXic1ALZfyfibz19SnwTmjVvXcaMyNZyk8ZHEeU4xiarfwiaMc66d8OsZEvzQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="cp-example.png"></p>
+<h2 id="8、cd-命令-切换工作目录"><a href="#8、cd-命令-切换工作目录" class="headerlink" title="8、cd 命令 : 切换工作目录"></a><strong>8、cd 命令 : 切换工作目录</strong></h2><p>Linux cd 命令用于切换当前工作目录至 dirName(目录参数)。</p>
+<p>其中 dirName 表示法可为绝对路径或相对路径。若目录名称省略，则变换至使用者的 home 目录,”~” 也表示为 home 目录 的意思</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd [dirName]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicMg3ichZZSibVqSNS4QkqiakvSGiaxswic0zu8G4yW0vfkTnt3o7mb8Gvia5A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="cd-example.png"></p>
+<h2 id="9、pwd-命令-显示工作目录"><a href="#9、pwd-命令-显示工作目录" class="headerlink" title="9、pwd 命令 : 显示工作目录"></a><strong>9、pwd 命令 : 显示工作目录</strong></h2><p>Linux pwd 命令用于显示工作目录。</p>
+<p>执行 pwd 指令可立刻得知您目前所在的工作目录的绝对路径名称。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicYOxfsbO9nXHuva5KzjMy2o92a02GEsF3SZPQqPFnPKRnVMUeicVrlEw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="pwd-example.png"></p>
+<h2 id="10、-mkdir-命令-创建目录"><a href="#10、-mkdir-命令-创建目录" class="headerlink" title="10、 mkdir 命令 : 创建目录"></a><strong>10、 mkdir 命令 : 创建目录</strong></h2><p>Linux mkdir 命令用于建立名称为 dirName 之子目录。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir [-p] dirName</span><br></pre></td></tr></table></figure>
+
+<h3 id="options-2"><a href="#options-2" class="headerlink" title="options"></a><strong>options</strong></h3><ul>
+<li>-p 确保目录名称存在,不存在的就建一个。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicSiamgDAfeic1veWZR9yKtt7CC2P2V2BD1pV3hdrK6ZpcOQtItb4XkWeg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="mkdir-example.png"></p>
+<h2 id="11、-rmdir-命令-删除空目录"><a href="#11、-rmdir-命令-删除空目录" class="headerlink" title="11、 rmdir 命令 : 删除空目录"></a><strong>11、 rmdir 命令 : 删除空目录</strong></h2><p>Linux rmdir 命令删除空的目录。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rmdir [-p] dirName</span><br></pre></td></tr></table></figure>
+
+<h3 id="options-3"><a href="#options-3" class="headerlink" title="options"></a><strong>options</strong></h3><ul>
+<li>-p 是当子目录被删除后使它也成为空目录的话,则顺便一并删除。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicnzgdVKNpHPjeWeDMXQkqzukREibBRCwxic31B1P5r9VVRnr2PLTQAJcQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="rmdir-example.png"></p>
+<h2 id="12、cat-命令-查看文件内容"><a href="#12、cat-命令-查看文件内容" class="headerlink" title="12、cat 命令 : 查看文件内容"></a><strong>12、cat 命令 : 查看文件内容</strong></h2><p>cat 命令用于连接文件并打印到标准输出设备上。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat fileName</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicUA0yuKeQ3VibumOYxO4AHfYrBuXDd2Bb8nsxtIzNusvSX1yTTNg5YtQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="cat-example.png"></p>
+<h2 id="13、ping-命令-检测主机"><a href="#13、ping-命令-检测主机" class="headerlink" title="13、ping 命令 : 检测主机"></a><strong>13、ping 命令 : 检测主机</strong></h2><p>执行 ping 指令会使用 ICMP 传输协议,发出要求回应的信息,若远端主机的网络功能没有问题,就会回应该信息,因而得知该主机运作正常。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ping [主机名称或IP地址]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-3"><a href="#常用-options-3" class="headerlink" title="常用 options:"></a><strong>常用 options:</strong></h3><ul>
+<li>-c&lt;完成次数&gt; 设置完成要求回应的次数。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXico9aWR3iazkLTlBHkjrjxGEDLS4cb4Ae5zTeHHfAq0kggRAPnycAwnJg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="ping-example.png"></p>
+<h2 id="14、-telnet-命令-端口是否可访问"><a href="#14、-telnet-命令-端口是否可访问" class="headerlink" title="14、 telnet 命令 : 端口是否可访问"></a><strong>14、 telnet 命令 : 端口是否可访问</strong></h2><p>虽然 Linux telnet 命令主要用于远端登入。执行 telnet 指令开启终端机阶段作业,并登入远端主机,</p>
+<p>但是我更经常用它来查看某个远端主机端口是否可访问。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">telnet [主机名称或IP地址&lt;通信端口&gt;]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicGJ14ldzEMk8lO4FwlH5ARdWePhgjqqPK63uobKMQ5y5mzpjgkYJM5g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="telnet-example.png"></p>
+<h2 id="15、-grep-命令-查找关键字"><a href="#15、-grep-命令-查找关键字" class="headerlink" title="15、 grep 命令 : 查找关键字"></a><strong>15、 grep 命令 : 查找关键字</strong></h2><p>Linux grep 命令用于查找文件里符合条件的字符串。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">grep [文件或目录...]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicnmh4N0IBp0XoOFsNzxsonqicAg3dTic65icBlCUDWo7x5pW5sReJYcMLw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="grep-example.png"></p>
+<h2 id="16、ps-命令-显示当前进程状态"><a href="#16、ps-命令-显示当前进程状态" class="headerlink" title="16、ps 命令 : 显示当前进程状态"></a><strong>16、ps 命令 : 显示当前进程状态</strong></h2><p>Linux ps 命令用于显示当前进程 (process) 的状态。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps [options]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-4"><a href="#常用-options-4" class="headerlink" title="常用 options"></a><strong>常用 options</strong></h3><ul>
+<li>-e 显示所有进程。</li>
+<li>-f 全格式。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ps -ef # 显示所有命令，连带命令行</span><br></pre></td></tr></table></figure>
+
+<h2 id="17、-命令-管道命令"><a href="#17、-命令-管道命令" class="headerlink" title="17、| 命令 : 管道命令"></a><strong>17、| 命令 : 管道命令</strong></h2><p>通常情况下,我们只执行一条命令,那么如何执行多条命令呢？</p>
+<p>管道是一种通信机制，通常用于进程间的通信（也可通过 socket 进行网络通信），它表现出来的形式将前面每一个进程的输出（stdout）直接作为下一个进程的输入（stdin）。</p>
+<ul>
+<li>只能处理前一条指令的正确输出，不能处理错误输出</li>
+<li>管道命令必须要能够接受来自前一个命令的数据成为 standard input 继续处理才行。</li>
+</ul>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicW0JTROaSt4XmWED6uAo8jIicRJ2KsODuYib9BAiagafJWtDuoMaodHTTg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="pipe-example.png"></p>
+<h2 id="18、-kill-命令-杀死进程"><a href="#18、-kill-命令-杀死进程" class="headerlink" title="18、 kill 命令 : 杀死进程"></a><strong>18、 kill 命令 : 杀死进程</strong></h2><p>Linux kill 命令用于删除执行中的程序或工作。</p>
+<p>kill 可将指定的信息送至程序。预设的信息为 SIGTERM(15),可将指定程序终止。若仍无法终止该程序,可使用 SIGKILL(9)信息尝试强制删除程序。程序或工作的编号可利用 ps 指令或 jobs 指令查看。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kill [-s &lt;信息名称或编号&gt;][程序]　或　kill [-l &lt;信息编号&gt;]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicIu4Rd9XzGelA6oRNVhHwpzVgInwDq2OQM2FlkJk8LkKg6y6ib10j8iag/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="kill-example.png"></p>
+<h2 id="19、-top-命令-实时显示进程动态"><a href="#19、-top-命令-实时显示进程动态" class="headerlink" title="19、 top 命令 : 实时显示进程动态"></a><strong>19、 top 命令 : 实时显示进程动态</strong></h2><p>Linux top 命令用于实时显示 process 的动态。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">top</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-5"><a href="#常用-options-5" class="headerlink" title="常用 options:"></a><strong>常用 options:</strong></h3><ul>
+<li>-pid 指定进程 id</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">top -pid 4712</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicgUyjGHMO81bZJWFzkGfKjU1yKkRE4LRdJWc5wjEDibKGl8XicHnnVicicw/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="top-example.gif"></p>
+<h2 id="20、-clear-命令-清除屏幕"><a href="#20、-clear-命令-清除屏幕" class="headerlink" title="20、 clear 命令 : 清除屏幕"></a><strong>20、 clear 命令 : 清除屏幕</strong></h2><p>Linux clear 命令用于清除屏幕。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">clear</span><br></pre></td></tr></table></figure>
+
+<h2 id="21、-alias-命令-别名配置"><a href="#21、-alias-命令-别名配置" class="headerlink" title="21、 alias 命令 : 别名配置"></a><strong>21、 alias 命令 : 别名配置</strong></h2><p>Linux alias 命令用于设置指令的别名。</p>
+<p>用户可利用 alias,自定指令的别名。若仅输入 alias,则可列出目前所有的别名设置。alias 的效力仅及于该次登入的操作。若要每次登入是即自动设好别名,可在.profile 或.cshrc 中设定指令的别名。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">alias[别名]&#x3D;[指令名称]</span><br></pre></td></tr></table></figure>
+
+<p>比如 git 原先就配置了一些别名,我们来看看</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicDCebapv4Ung862KZncdSVLlgN2A7V4LBxKpBUOEX8InGWMd3m0X1VQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="alias-example.png"></p>
+<h2 id="22、-find-命令-查找文件"><a href="#22、-find-命令-查找文件" class="headerlink" title="22、 find 命令 : 查找文件"></a><strong>22、 find 命令 : 查找文件</strong></h2><p>Linux find 命令用来在指定目录下查找文件。任何位于参数之前的字符串都将被视为欲查找的目录名。</p>
+<p>如果使用该命令时,不设置任何参数,则 find 命令将在当前目录下查找子目录与文件。并且将查找到的子目录和文件全部进行显示。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find path -option [ -print ] [ -exec -ok command ] &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicKicJpTCNiaxldgYS2lYYfsol4TjGFwaCp7OuBH7VP8zWlCic3nPlzBMUg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="find-example.png"></p>
+<h2 id="23、-curl-命令-文件传输"><a href="#23、-curl-命令-文件传输" class="headerlink" title="23、 curl 命令 : 文件传输"></a><strong>23、 curl 命令 : 文件传输</strong></h2><p>linux curl 是通过 url 语法在命令行下上传或下载文件的工具软件,它支持 http,https,ftp,ftps,telnet 等多种协议,常被用来抓取网页和监控 Web 服务器状态。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl [options] [url]</span><br></pre></td></tr></table></figure>
+
+<h3 id="常用-options-6"><a href="#常用-options-6" class="headerlink" title="常用 options:"></a>常用 options:</h3><ul>
+<li>-o 把输出写到该文件中</li>
+<li>-I 仅仅返回 header</li>
+</ul>
+<p>curl 命令能做很多事,用过的人都说香,我说说我常用的场景吧:</p>
+<ol>
+<li><strong>调试请求</strong></li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicVfatkjFFzNATRFc4zG6ykxXv3s2uFqc4MGnpU0vzuuH6FWibjqMnJLw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="curl-example-1.png"></p>
+<ol>
+<li><strong>查看头部信息</strong></li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicu5P8OI6nNACZ44b4IYkzs98Z0UpqMCfIiayz3N91GPibLRvvdNl3iafww/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="curl-example-3.png"></p>
+<ol>
+<li><strong>抓取网页</strong></li>
+</ol>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/eXCSRjyNYcaAWayNzE9hb4h7OEDttLXicw40UlPPblJYKicMjNVlicia17aBoJuIZncVAqpxmx774X4hdTEWfpucqA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="curl-example-2.png"></p>
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>react性能实践</title>
+    <url>/blog/2020/08/06/react%E6%80%A7%E8%83%BD%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><p>柯里化是函数式编程编程的常用技巧： 将多参数函数转换成单参数函数，这些单参数函数的返回值也是函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">x,y</span>) =&gt;</span> x + y; </span><br><span class="line"><span class="comment">// 变形</span></span><br><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="params">x</span> =&gt;</span> <span class="function"><span class="params">y</span> =&gt;</span> x + y;</span><br><span class="line"><span class="keyword">const</span> add1 = add1(<span class="number">1</span>);</span><br><span class="line">add1(<span class="number">2</span>); <span class="comment">//3</span></span><br><span class="line">add2(<span class="number">3</span>)	<span class="comment">//4</span></span><br><span class="line"><span class="comment">// 传入第一个参数后，第一个值（x）被保留起来，返回的第二个函数可以多次复用</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h1>]]></content>
+      <categories>
+        <category>前端</category>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>前端工程化实践（一）-- 前端组件化</title>
+    <url>/blog/2020/08/06/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%EF%BC%88%E4%B8%80%EF%BC%89--%20%E5%89%8D%E7%AB%AF%E7%BB%84%E4%BB%B6%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="前端工程化实践（一）–-前端组件化"><a href="#前端工程化实践（一）–-前端组件化" class="headerlink" title="前端工程化实践（一）– 前端组件化"></a>前端工程化实践（一）– 前端组件化</h1><h4 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h4><ul>
+<li><p>公司当前的前端开发现状是，各个项目组各自封装各自的组件，无法快速复用和统一管理，影响开发效率，增加迭代成本</p>
+</li>
+<li><p>目前国内访问国外服务器被墙的现状，在项目初始化和迭代过程中，出现npm包无法下载，下载慢的问题，即便切换其他镜像下载有时也不理想，（不同源的包甚至有些微差异，目前在样式方面有体现）</p>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>托管公司内部组件库代码，不对外，方便管理<br>项目中使用到的npm包会缓存到私服库里，能明显提升之后下包的速度</p>
+</li>
+<li><p>前置基础：默认服务器已安装node，PM2</p>
+</li>
+</ul>
+<p>因为公司目前是React技术栈，且主要使用umi+antd的生态，故本着一切从快从简的原则，直接使用了相关的umi/father工具，master是使用一开始的library工具，3月份作者改名为dumi，支持迁移，马上探索！</p>
+<h2 id="npm私服搭建"><a href="#npm私服搭建" class="headerlink" title="npm私服搭建"></a>npm私服搭建</h2><p>使用基于node的verdaccio搭建，简单，方便，快捷!此处默认服务器已安装node环境</p>
+<ul>
+<li><p>全局安装verdaccio：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm i verdaccio -g;</span><br></pre></td></tr></table></figure></li>
+<li><p>全局安装pm2，用来守护node进程：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm i pm2 -g;</span><br></pre></td></tr></table></figure></li>
+<li><p>启动verdaccio：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pm2 start verdaccio</span><br></pre></td></tr></table></figure></li>
+<li><p>停止verdaccio：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pm2 stop verdaccio</span><br></pre></td></tr></table></figure>
+<p><img src="E:%5C%E7%AC%94%E8%AE%B0%5C001.png" alt="001"></p>
+<h3 id="verdaccio使用"><a href="#verdaccio使用" class="headerlink" title="verdaccio使用"></a>verdaccio使用</h3></li>
+<li><p>查看config.yaml配置文件  config.yaml<br><img src="E:%5C%E7%AC%94%E8%AE%B0%5C002.png" alt="002"></p>
+</li>
+<li><p>修改配置 vim /root/.config/verdaccio/config.yaml，配置服务端口 0.0.0.:4873,也可以配置包的缓存位置，请留意这些红色标注<br><img src="E:%5C%E7%AC%94%E8%AE%B0%5C003.png" alt="003"></p>
+</li>
+<li><p>阿里云服务器记得打开端口访问权限</p>
+</li>
+<li><p>其他解释：</p>
+<p><strong>字段含义：</strong><br> scope有两种模式<br> 一种是 @/ 表示某下属的某项目<br> 另一种是 * 匹配项目名称(名称在package.json中有定义)<br> 权限：</p>
+<ul>
+<li><code>access</code>: 表示哪一类用户可以对匹配的项目进行安装(install)</li>
+<li><code>publish</code>: 表示哪一类用户可以对匹配的项目进行发布(publish)</li>
+<li><code>proxy</code>: 如其名，这里的值是对应于 uplinks 的名称，如果本地不存在，允许去对应的uplinks去取。</li>
+</ul>
+<p><strong>值的含义：</strong></p>
+<ul>
+<li><code>$all</code> 表示所有人(已注册、未注册)都可以执行对应的操作</li>
+<li><code>$authenticated</code> 表示只有通过验证的人(已注册)可以执行对应操作，注意，任何人都可以去注册账户。</li>
+<li><code>$anonymous</code> 表示只有匿名者可以进行对应操作（通常无用）</li>
+</ul>
+<p>如果要指定某个用户才有权限，可以直接写上用户名，多个用户用空格隔开，比如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">publish: michael martin</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="father（umi）使用"><a href="#father（umi）使用" class="headerlink" title="father（umi）使用"></a>father（umi）使用</h3><p>一开始用的library，后面作者推荐用更新到father，目前又推荐使用dumi暂时未升级</p>
+<ul>
+<li><p>修改package.json</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">    "doc:dev": "father doc dev", //本地文档开发</span><br><span class="line">    "dev": "father build --watch",// 监视组件构建</span><br><span class="line">    "build": "father build",// 组件构建</span><br><span class="line">    "doc:build": "father doc build",//本地文档构建</span><br><span class="line">    "doc:deploy": "father doc deploy"//构建发布文档到远程git</span><br><span class="line">&#125;</span><br><span class="line">"main": "dist/index.js",</span><br><span class="line">"module": "dist/index.esm.js",</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改.fatherrc.js</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  entry: <span class="string">'src/index.js'</span>,</span><br><span class="line">  esm: <span class="string">'babel'</span>, <span class="comment">//默认rollup </span></span><br><span class="line">  cjs: <span class="string">'babel'</span>, <span class="comment">//默认rollup </span></span><br><span class="line">  <span class="comment">//rollup的情况下发现无法用es6导入 只能用require，同时package.json的入口的配置"main": "dist/index.js","module": "dist/index.esm.js",即从dist作为主入口</span></span><br><span class="line">    </span><br><span class="line">  doc: &#123;</span><br><span class="line">    base: <span class="string">'/umi_cps'</span>, <span class="comment">//如果是根目录直接写‘/’，我此处配置未git上的仓库名称</span></span><br><span class="line">    title: <span class="string">'MgUi'</span>, <span class="comment">// 左上角title</span></span><br><span class="line">    themeConfig: &#123; <span class="attr">mode</span>: <span class="string">'light'</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  cssModules: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// cssModules: &#123;</span></span><br><span class="line">  <span class="comment">//   generateScopedName: 'mglinker_[name]__[local]___[hash:base64:5]',</span></span><br><span class="line">  <span class="comment">// &#125;,</span></span><br><span class="line">  <span class="comment">// extractCSS: true,</span></span><br><span class="line">  extraRollupPlugins: [</span><br><span class="line">    commonjs(&#123;</span><br><span class="line">      <span class="comment">// include: 'node_modules/**',</span></span><br><span class="line">      <span class="comment">// namedExports: &#123; 'react': ['createElement', 'Component', 'Fragment', 'createContext', 'useContext', 'useEffect', 'useMemo', 'useRef', 'useState', 'forwardRef', 'Suspense', 'useCallback', 'memo' ] &#125;,</span></span><br><span class="line">      namedExports: &#123; <span class="string">'react'</span>: [<span class="string">'createElement'</span>, <span class="string">'Component'</span>] &#125;, <span class="comment">// react的api如果有报缺少，则在配置</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  extraBabelPlugins: [</span><br><span class="line">    [<span class="string">'babel-plugin-import'</span>, &#123;</span><br><span class="line">      libraryName: <span class="string">'antd'</span>,</span><br><span class="line">      libraryDirectory: <span class="string">'es'</span>,</span><br><span class="line">      style: <span class="literal">true</span>,</span><br><span class="line">    &#125;],</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开发调试包</p>
+<ul>
+<li><p>进入组件库根目录，执行</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//根据package.json上的配置，包被链接到全局（去全局找会发现那里是一个快捷方式指向本地组件库这里）</span></span><br><span class="line">npm link</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>进入测试引用的项目，执行</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//链接本地组件库名（package.json内的名字）</span></span><br><span class="line">npm link umi_cps</span><br><span class="line"><span class="comment">//链接完成，测试使用</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解除link</p>
+ <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//解除项目和模块link，项目目录下</span></span><br><span class="line">npm unlink 模块名</span><br><span class="line"><span class="comment">//解除模块全局link，模块目录下</span></span><br><span class="line">npm unlink 模块名</span><br></pre></td></tr></table></figure>
+
+<p>Tip: 也可以在同一项目目录下，相对路径引入</p>
+</li>
+</ul>
+</li>
+<li><p>发布包</p>
+<ul>
+<li><p>注意切换镜像，我是用镜像管理工具，也可以直接使用npm config</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">nrm use npm <span class="comment">//或者私服地址的镜像名 npm config set registry  https://xxxx.org</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>登录发布</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 注册账号（无账号网站注册或者使用命令行创建）</span></span><br><span class="line">npm adduser</span><br><span class="line">Username: xxx</span><br><span class="line">Password: xxxxxx</span><br><span class="line">Email: xxxx@gmail.com</span><br><span class="line"><span class="comment">// 登录</span></span><br><span class="line">npm login</span><br><span class="line">Username: xxx</span><br><span class="line">Password: xxxxxx</span><br><span class="line">Email: xxxx@gmail.com</span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">npm publish</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再次提醒： 注意切换镜像！！！切换后要重新登录！</li>
+</ul>
+</li>
+</ul>
+<h1 id="组件Demo"><a href="#组件Demo" class="headerlink" title="组件Demo"></a>组件Demo</h1><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm install umi_cps</span><br></pre></td></tr></table></figure>
+
+<p>或者用yarn安装</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">yarn add umi_cps</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h3><figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; </span><br><span class="line">  MgButton,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'umi_cps'</span></span><br><span class="line"><span class="keyword">const</span> Demo = <span class="function"><span class="params">()</span> =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">MgButton</span>&gt;</span>蘑菇的第一个button<span class="tag">&lt;/<span class="name">MgButton</span>&gt;</span></span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Demo</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-组件开发调试"><a href="#3-组件开发调试" class="headerlink" title="3.组件开发调试"></a>3.组件开发调试</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm run doc:dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-组件构建"><a href="#4-组件构建" class="headerlink" title="4.组件构建"></a>4.组件构建</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-构建使用文档"><a href="#5-构建使用文档" class="headerlink" title="5.构建使用文档"></a>5.构建使用文档</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-推送文档到远程git仓库发布"><a href="#5-推送文档到远程git仓库发布" class="headerlink" title="5.推送文档到远程git仓库发布"></a>5.推送文档到远程git仓库发布</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">npm run doc:deploy</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端工程化</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>发包</title>
+    <url>/blog/2020/08/06/%E5%8F%91%E5%8C%85/</url>
+    <content><![CDATA[<p>npm发包流程</p>
+<h3 id="注册npm账号"><a href="#注册npm账号" class="headerlink" title="注册npm账号"></a>注册npm账号</h3><p><a href="https://www.npmjs.com/signup" target="_blank" rel="noopener">https://www.npmjs.com/signup</a></p>
+<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><ul>
+<li>初始化（myNpm）<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm init <span class="comment">// 生成package.json</span></span><br></pre></td></tr></table></figure></li>
+<li>创建项目文件index.js</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123; <span class="comment">// 暴露模块</span></span><br><span class="line">  fun: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'我的第一个测试包'</span>);</span><br><span class="line">  &#125;     </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改package.json文件<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"main": "index.js",</span><br></pre></td></tr></table></figure>
+<h3 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h3>新建test.js<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> tools = <span class="built_in">require</span>(<span class="string">'./index.js'</span>)</span><br><span class="line">tools.fun()</span><br></pre></td></tr></table></figure>
+命令行执行<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">node test.js <span class="comment">// 输出：我的第一个测试包</span></span><br></pre></td></tr></table></figure>
+<h3 id="发布包"><a href="#发布包" class="headerlink" title="发布包"></a>发布包</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm adduser <span class="comment">// 输入账号密码,如果不是第一次发包，运行 npm login</span></span><br><span class="line"><span class="comment">// 不是当前项目需要设置包名参数</span></span><br><span class="line">npm publish <span class="comment">// 项目目录下--access=public公共包</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在測試版本中 的package.json我們改成這樣 "version": "1.0.6-beta",然後提交測試版本</span></span><br><span class="line">npm publish --tag=beta</span><br><span class="line"><span class="comment">// 下載測試版本</span></span><br><span class="line">npm install @fz/components@beta</span><br></pre></td></tr></table></figure>
+<h3 id="包权限管理"><a href="#包权限管理" class="headerlink" title="包权限管理"></a>包权限管理</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">查看远程包版本</span><br><span class="line">npm view &lt;package_name&gt; version --json</span><br><span class="line">查看模块拥有者 </span><br><span class="line">npm owner ls &lt;package_name&gt; </span><br><span class="line">添加一个发布者 </span><br><span class="line">npm owner add &lt;user&gt; <span class="xml"><span class="tag">&lt;<span class="name">package_name</span>&gt;</span> </span></span><br><span class="line"><span class="xml">删除一个发布者 </span></span><br><span class="line">npm owner rm &lt;user&gt; &lt;package_name&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端工程化</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>干掉端口号方法：</title>
+    <url>/blog/2020/08/06/%E5%B9%B2%E6%8E%89%E7%AB%AF%E5%8F%A3%E5%8F%B7%E6%96%B9%E6%B3%95%EF%BC%9A/</url>
+    <content><![CDATA[<p>干掉端口号方法：</p>
+<p>1.进入cmd命令窗口，写netstat -ano|findstr “8080”</p>
+<p><img src="https://img2018.cnblogs.com/blog/1215590/201811/1215590-20181116143844534-1765934002.png" alt="img"></p>
+<p>2.taskkill -PID 13512 -F</p>
+<p><img src="https://img2018.cnblogs.com/blog/1215590/201811/1215590-20181116143901503-695659454.png" alt="img"></p>
+<p>3.查看端口被哪个服务占用</p>
+<p>tasklist | findstr PID</p>
+<p>4.结束服务</p>
+<p>taskkill /f /t /im KGService.exe</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>端口</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>脚手架</title>
+    <url>/blog/2020/08/06/%E8%84%9A%E6%89%8B%E6%9E%B6/</url>
+    <content><![CDATA[<p>npm发包(基本流程通同其他包)</p>
+<p>常用工具包：</p>
+<ul>
+<li>chalk –命令行文字定制化显示工具</li>
+<li>commander –命令行工具</li>
+<li>inquirer –命令行问询工具</li>
+<li>ora –命令行生成loading工具</li>
+<li>fs-extra –fs加强版</li>
+</ul>
+<p>download-git-repo –远程git资源包下载工具</p>
+<h3 id="注册npm账号"><a href="#注册npm账号" class="headerlink" title="注册npm账号"></a>注册npm账号</h3><p><a href="https://www.npmjs.com/signup" target="_blank" rel="noopener">https://www.npmjs.com/signup</a></p>
+<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><ul>
+<li>初始化（ test）<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm init <span class="comment">// 生成package.json</span></span><br></pre></td></tr></table></figure></li>
+<li>创建项目文件<ul>
+<li>创建bin文件夹</li>
+<li>创建bin/build文件（可以不写后缀名，可以为其他文件名）</li>
+<li>设置<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env node</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'hello world'</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>修改package.json文件 添加<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"bin": "bin/build",</span><br></pre></td></tr></table></figure>
+<h3 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cd test</span><br><span class="line">node ./bin/build</span><br><span class="line"><span class="comment">// 输入 hello world</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h3><p>如果是第一次发布，运行 npm adduser，如果不是第一次发包，运行 npm login，输入账号密码<br>进入项目文件夹下，运行 npm publish 发布，不是当前项目需要设置设置包名</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>前端工程化</category>
+      </categories>
+      <tags>
+        <tag>npm</tag>
+        <tag>node</tag>
+        <tag>自动化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>小程序web-view踩坑</title>
+    <url>/blog/2020/08/06/%E5%B0%8F%E7%A8%8B%E5%BA%8Fweb-view%E8%B8%A9%E5%9D%91/</url>
+    <content><![CDATA[<h1 id="小程序web-view"><a href="#小程序web-view" class="headerlink" title="小程序web-view"></a>小程序web-view</h1><p>背景：公司要做一个统计的echarts图，数据返回为数组，长度大概在5000，直接集成echarts使用，发现dataZoom拖拽卡顿严重，（其实主要是数据返回后渲染时间较长，渲染完成还是OK滴），控制台查看发现应该是微信小程序平台的性能瓶颈限制，考虑使用web-view突破</p>
+<p>由于公司使用的是Taro框架来做小程序的，所以遵循Reac的基本开发规范,原生也是同理，直接上代码吧</p>
+<h3 id="HistoryLine组件"><a href="#HistoryLine组件" class="headerlink" title="HistoryLine组件"></a>HistoryLine组件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import Taro, &#123; Component &#125; from &#39;@tarojs&#x2F;taro&#39;</span><br><span class="line">&#x2F;&#x2F; 引入 WebView 组件（原生一致）</span><br><span class="line">import &#123; WebView &#125; from &#39;@tarojs&#x2F;components&#39;</span><br><span class="line"></span><br><span class="line">class HistoryLine extends Component &#123;</span><br><span class="line">  config &#x3D; &#123;</span><br><span class="line">    navigationBarTitleText: &quot;历史曲线&quot;,</span><br><span class="line">    pageOrientation: &#39;landscape&#39;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  render () &#123;</span><br><span class="line">      &#x2F;&#x2F; 路由传参</span><br><span class="line">    const &#123; params: &#123; equipmentGroupAttrName, groupId &#125; &#125; &#x3D; this.$router;</span><br><span class="line">      &#x2F;&#x2F; 在web页发请求需要小程序的请求头信息(后台接口校验使用，我存在本地，看你喜欢咯)</span><br><span class="line">      &#x2F;&#x2F; 注意中文字符会被编码，就不用我说了吧，转码！！！</span><br><span class="line">    console.log(&#96;https:&#x2F;&#x2F;xxx.com&#x2F;area-simple.html?equipmentGroupAttrName&#x3D;$&#123;encodeURI(equipmentGroupAttrName)&#125;&amp;groupId&#x3D;$&#123;groupId&#125;&#96;)</span><br><span class="line">    &#x2F;&#x2F; console.log(&#96;http:&#x2F;&#x2F;192.168.1.136:5500&#x2F;area-simple.html?equipmentGroupAttrName&#x3D;$&#123;encodeURI(equipmentGroupAttrName)&#125;&amp;groupId&#x3D;$&#123;groupId&#125;&#96;)</span><br><span class="line">    return (</span><br><span class="line">      &lt;WebView src&#x3D;&#123;&#96;https:&#x2F;&#x2F;xxx.com&#x2F;area-simple.html?equipmentGroupAttrName&#x3D;$&#123;equipmentGroupAttrName&#125;&amp;groupId&#x3D;$&#123;groupId&#125;&#96;&#125;  &#x2F;&gt;</span><br><span class="line">      &#x2F;&#x2F; &lt;WebView src&#x3D;&#123;&#96;http:&#x2F;&#x2F;192.168.1.136:5500&#x2F;area-simple.html?equipmentGroupAttrName&#x3D;$&#123;equipmentGroupAttrName&#125;&amp;groupId&#x3D;$&#123;groupId&#125;&#96;&#125;  &#x2F;&gt;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default HistoryLine;</span><br></pre></td></tr></table></figure>
+
+<h3 id="H5页面"><a href="#H5页面" class="headerlink" title="H5页面"></a>H5页面</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 主要代码</span><br><span class="line">&lt;div class&#x3D;&quot;lineChart&quot; id&#x3D;&quot;container&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">    &#x2F;&#x2F; 获取传参</span><br><span class="line">      function getQueryVariable(variable) &#123;</span><br><span class="line">        var query &#x3D; window.location.search.substring(1);</span><br><span class="line">        var vars &#x3D; query.split(&quot;&amp;&quot;);</span><br><span class="line">        for (var i &#x3D; 0; i &lt; vars.length; i++) &#123;</span><br><span class="line">          var pair &#x3D; vars[i].split(&quot;&#x3D;&quot;);</span><br><span class="line">          if (pair[0] &#x3D;&#x3D; variable) &#123;</span><br><span class="line">            return pair[1];</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      console.log(window.location);</span><br><span class="line">      &#x2F;&#x2F; 中文反编码</span><br><span class="line">        var equipmentGroupAttrName &#x3D; decodeURI(getQueryVariable(&#39;equipmentGroupAttrName&#39;));</span><br><span class="line">        var groupId &#x3D; getQueryVariable(&#39;groupId&#39;);</span><br><span class="line">  	&#x2F;&#x2F; 其他业务逻辑（做的echart图，就不放了）</span><br><span class="line">    &lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><ol>
+<li>小程序在开发工具上，web-view的h5页面可以是放在本地服务上的web，页面内访问的接口可以是非https非域名的接口（需要设置开发工具不校验https和域名）</li>
+<li>在手机调试时，即便打开开发者模式，以上环境，H5页面内也无法正常访问接口<ul>
+<li>如果h5页面部署在本地环境，手机运行到同一wifi环境下，即可正常访问web，无法访问接口</li>
+<li>如果h5页面部署在外网环境，如果web服务器时http协议，接口是http协议，可以访问web，无法访问接口</li>
+<li>如果h5页面部署在外网环境，如果web服务器时http协议，接口是https协议，可以访问web，可以访问接口</li>
+<li>如果h5页面部署在外网环境，如果web服务器时https协议，接口是http协议，可以访问web，无法访问接口（web控制台会报错，提示不支持调用http协议）</li>
+<li>如果h5页面部署在外网环境，如果web服务器时https协议，接口是https协议，可以访问web，可以访问接口（完美）</li>
+</ul>
+</li>
+<li>正式发布，必须为2中的最后一条规则，且需要配置微信小程序访问域名白名单：添加H5页面所在服务器域名及其内访问的api域名，规则为：https+备案域名</li>
+</ol>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>小程序</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+        <tag>webview</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自定义事件对象</title>
+    <url>/blog/2020/08/06/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<h1 id="自定义事件对象"><a href="#自定义事件对象" class="headerlink" title="自定义事件对象"></a>自定义事件对象</h1><h3 id="自定义事件类"><a href="#自定义事件类" class="headerlink" title="自定义事件类"></a>自定义事件类</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// events.js</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;</span><br><span class="line">    <span class="keyword">this</span>.events=&#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  on(eventName,cb)&#123;<span class="comment">//注册（监听）</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span>.events[eventName])&#123;</span><br><span class="line">      <span class="keyword">this</span>.events[eventName].push(cb);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.events[eventName]=[cb];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// 传参</span></span><br><span class="line"><span class="comment">// emit(eventName, params)&#123;</span></span><br><span class="line"><span class="comment">//  this.events[eventName].forEach(cb=&gt;&#123;</span></span><br><span class="line"><span class="comment">//   cb(params);</span></span><br><span class="line"><span class="comment">//  &#125;)</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line">  emit(eventName)&#123;<span class="comment">//派发（执行）</span></span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.events[eventName])&#123;</span><br><span class="line">          <span class="keyword">this</span>.events[eventName].forEach(<span class="function"><span class="params">cb</span>=&gt;</span>&#123;</span><br><span class="line">          cb();</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      	<span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Event;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例实例对象"><a href="#实例实例对象" class="headerlink" title="实例实例对象"></a>实例实例对象</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// common.js</span></span><br><span class="line"><span class="keyword">const</span> getEvent = <span class="keyword">new</span> Event();</span><br><span class="line"> </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> getEvent;</span><br></pre></td></tr></table></figure>
+<h3 id="组件一注册事件"><a href="#组件一注册事件" class="headerlink" title="组件一注册事件"></a>组件一注册事件</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> getEvent <span class="keyword">from</span> <span class="string">'./common'</span></span><br><span class="line">   getEvent.on(<span class="string">'test'</span>,()=&gt;&#123;</span><br><span class="line">     alert(<span class="number">1</span>)</span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="组件二派发事件"><a href="#组件二派发事件" class="headerlink" title="组件二派发事件"></a>组件二派发事件</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> getEvent <span class="keyword">from</span> <span class="string">'./common'</span></span><br><span class="line">getEvent.emit(<span class="string">'test'</span>);</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>前端</category>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>event</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面向对象</title>
+    <url>/blog/2017/10/07/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<p>1.类式继承</p>
+<p>SubClass.protype=new SuperClass();</p>
+<p>缺点：无法在创建子类实例时传参给父类（初始化原型属性，即父类实例），如果继承的属性是引用类型，则修改该属性会相互影响（共用地址空间）</p>
+<p>2.构造函数继承(call方法)，子类中直接使用this调用call方法，传入参数</p>
+<p>SuperClass.call(this,params) </p>
+<p>缺点：只继承了父类实例属性， 不能继承原型属性，无法实现函数复用 </p>
+<p>3.组合继承：</p>
+<p>构造函数内SuperClass.call(this,params) //可传参继承实例属性</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Son.prototype.constructor &#x3D; Son;</span><br></pre></td></tr></table></figure>
+
+<p>构造函数外SubClass.protype=new SuperClass();) //继承实例属性（无法传参也没关系，优先访问构造函数内的实例属性）+原型属性</p>
+<p>调用两次父类构造函数，资源浪费</p>
+<p>4.原型链继承</p>
+<p>构造函数内SuperClass.call(this,params) // 可传参，继承实例属性</p>
+<p>构造函数外SubClass.protype=SubClass.protype； // 继承原型属性</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>面向对象</category>
+      </categories>
+      <tags>
+        <tag>继承</tag>
+      </tags>
+  </entry>
+</search>

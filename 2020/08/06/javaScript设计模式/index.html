@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    javaScript设计模式 |  追卓
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-javaScript设计模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  javaScript设计模式
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="2020/08/06/javaScript设计模式/" class="article-date">
+  <time datetime="2020-08-06T03:04:29.064Z" itemprop="datePublished">2020-08-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="categories/前端/">前端</a> / <a class="article-category-link" href="categories/前端/面向对象/">面向对象</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">6 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="JavaScript设计模式"><a href="#JavaScript设计模式" class="headerlink" title="JavaScript设计模式"></a>JavaScript设计模式</h2><p><a href="javascript:void(0);">前端大学</a> <em>4月9日</em></p>
+<p>（给前端大学加星标，提升前端技能.）</p>
+<blockquote>
+<p>作者:考拉海购前端团队</p>
+<p><a href="https://juejin.im/post/59df4f74f265da430f311909" target="_blank" rel="noopener">https://juejin.im/post/59df4f74f265da430f311909</a></p>
+</blockquote>
+<p>设计模式的定义：在面向对象软件设计过程中针对特定问题的简洁而优雅的解决方案</p>
+<p>当然我们可以用一个通俗的说法：设计模式是解决某个特定场景下对某种问题的解决方案。因此，当我们遇到合适的场景时，我们可能会条件反射一样自然而然想到符合这种场景的设计模式。</p>
+<p>比如，当系统中某个接口的结构已经无法满足我们现在的业务需求，但又不能改动这个接口，因为可能原来的系统很多功能都依赖于这个接口，改动接口会牵扯到太多文件。因此应对这种场景，我们可以很快地想到可以用适配器模式来解决这个问题。</p>
+<p>下面介绍几种在JavaScript中常见的几种设计模式：</p>
+<h2 id="1、单例模式"><a href="#1、单例模式" class="headerlink" title="1、单例模式"></a><strong>1、单例模式</strong></h2><p><strong>单例模式的定义：</strong>保证一个类仅有一个实例，并提供一个访问它的全局访问点。实现的方法为先判断实例存在与否，如果存在则直接返回，如果不存在就创建了再返回，这就确保了一个类只有一个实例对象。</p>
+<p>适用场景：一个单一对象。比如：弹窗，无论点击多少次，弹窗只应该被创建一次。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CreateUser</span> </span>&#123;    </span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;        </span><br><span class="line">    <span class="keyword">this</span>.name = name;        </span><br><span class="line">    <span class="keyword">this</span>.getName();    </span><br><span class="line">	&#125;    </span><br><span class="line">	getName() &#123;         <span class="keyword">return</span> <span class="keyword">this</span>.name;    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 代理实现单例模式</span></span><br><span class="line"><span class="keyword">var</span> ProxyMode = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">	<span class="keyword">var</span> instance = <span class="literal">null</span>;    </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;        </span><br><span class="line">        <span class="keyword">if</span>(!instance) &#123;            </span><br><span class="line">        instance = <span class="keyword">new</span> CreateUser(name);        </span><br><span class="line">        &#125;       </span><br><span class="line">        <span class="keyword">return</span> instance;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">// 测试单体模式的实例</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> ProxyMode(<span class="string">"aaa"</span>);</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> ProxyMode(<span class="string">"bbb"</span>);</span><br><span class="line"><span class="comment">// 因为单体模式是只实例化一次，所以下面的实例是相等的</span></span><br><span class="line"><span class="built_in">console</span>.log(a === b);    <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、策略模式"><a href="#2、策略模式" class="headerlink" title="2、策略模式"></a><strong>2、策略模式</strong></h2><p>策略模式的定义：定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。</p>
+<p>策略模式的目的就是将算法的使用算法的实现分离开来。</p>
+<p>一个基于策略模式的程序至少由两部分组成。第一个部分是一组策略类（可变），策略类封装了具体的算法，并负责具体的计算过程。第二个部分是环境类Context（不变），Context接受客户的请求，随后将请求委托给某一个策略类。要做到这一点，说明Context中要维持对某个策略对象的引用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*策略类*/</span></span><br><span class="line"><span class="keyword">var</span> levelOBJ = &#123;    </span><br><span class="line"><span class="string">"A"</span>: <span class="function"><span class="keyword">function</span>(<span class="params">money</span>) </span>&#123;        <span class="keyword">return</span> money * <span class="number">4</span>;    &#125;,    </span><br><span class="line"><span class="string">"B"</span> : <span class="function"><span class="keyword">function</span>(<span class="params">money</span>) </span>&#123;        <span class="keyword">return</span> money * <span class="number">3</span>;    &#125;,    </span><br><span class="line"><span class="string">"C"</span> : <span class="function"><span class="keyword">function</span>(<span class="params">money</span>) </span>&#123;        <span class="keyword">return</span> money * <span class="number">2</span>;    &#125; </span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*环境类*/</span></span><br><span class="line"><span class="keyword">var</span> calculateBouns =<span class="function"><span class="keyword">function</span>(<span class="params">level,money</span>) </span>&#123;    </span><br><span class="line"><span class="keyword">return</span> levelOBJ[level](money);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(calculateBouns(<span class="string">'A'</span>,<span class="number">10000</span>)); <span class="comment">// 40000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3、代理模式"><a href="#3、代理模式" class="headerlink" title="3、代理模式"></a><strong>3、代理模式</strong></h2><p><strong>代理模式的定义：</strong>为一个对象提供一个代用品或占位符，以便控制对它的访问。</p>
+<p>常用的虚拟代理形式：某一个花销很大的操作，可以通过虚拟代理的方式延迟到这种需要它的时候才去创建（例：使用虚拟代理实现图片懒加载）</p>
+<p>图片懒加载的方式：先通过一张loading图占位，然后通过异步的方式加载图片，等图片加载好了再把完成的图片加载到img标签里面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> imgFunc = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> imgNode = <span class="built_in">document</span>.createElement(<span class="string">'img'</span>);   	</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(imgNode);    </span><br><span class="line">    <span class="keyword">return</span> &#123;        </span><br><span class="line">    setSrc: <span class="function"><span class="keyword">function</span>(<span class="params">src</span>) </span>&#123;            imgNode.src = src;        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="keyword">var</span> proxyImage = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();    </span><br><span class="line">    img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;        imgFunc.setSrc(<span class="keyword">this</span>.src);    &#125;   </span><br><span class="line">    <span class="keyword">return</span> &#123;        </span><br><span class="line">        setSrc: <span class="function"><span class="keyword">function</span>(<span class="params">src</span>) </span>&#123;           </span><br><span class="line">            imgFunc.setSrc(<span class="string">'./loading,gif'</span>);       </span><br><span class="line">            img.src = src;        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">proxyImage.setSrc(<span class="string">'./pic.png'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用代理模式实现图片懒加载的优点还有符合单一职责原则。减少一个类或方法的粒度和耦合度。</p>
+<h2 id="4、中介者模式"><a href="#4、中介者模式" class="headerlink" title="4、中介者模式"></a><strong>4、中介者模式</strong></h2><p><strong>中介者模式的定义：</strong>通过一个中介者对象，其他所有的相关对象都通过该中介者对象来通信，而不是相互引用，当其中的一个对象发生改变时，只需要通知中介者对象即可。通过中介者模式可以解除对象与对象之间的紧耦合关系。</p>
+<p>例如：现实生活中，航线上的飞机只需要和机场的塔台通信就能确定航线和飞行状态，而不需要和所有飞机通信。同时塔台作为中介者，知道每架飞机的飞行状态，所以可以安排所有飞机的起降和航线安排。</p>
+<p>中介者模式适用的场景：例如购物车需求，存在商品选择表单、颜色选择表单、购买数量表单等等，都会触发change事件，那么可以通过中介者来转发处理这些事件，实现各个事件间的解耦，仅仅维护中介者对象即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> goods = &#123;   <span class="comment">//手机库存    </span></span><br><span class="line"><span class="string">'red|32G'</span>: <span class="number">3</span>,    </span><br><span class="line"><span class="string">'red|64G'</span>: <span class="number">1</span>,    </span><br><span class="line"><span class="string">'blue|32G'</span>: <span class="number">7</span>,    </span><br><span class="line"><span class="string">'blue|32G'</span>: <span class="number">6</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//中介者var </span></span><br><span class="line">mediator = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> colorSelect = <span class="built_in">document</span>.getElementById(<span class="string">'colorSelect'</span>);    </span><br><span class="line">    <span class="keyword">var</span> memorySelect = <span class="built_in">document</span>.getElementById(<span class="string">'memorySelect'</span>);    </span><br><span class="line">    <span class="keyword">var</span> numSelect = <span class="built_in">document</span>.getElementById(<span class="string">'numSelect'</span>);    </span><br><span class="line">    <span class="keyword">return</span> &#123;        </span><br><span class="line">        changed: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;            </span><br><span class="line">            <span class="keyword">switch</span>(obj)&#123;                </span><br><span class="line">            <span class="keyword">case</span> colorSelect:                    <span class="comment">//TODO</span></span><br><span class="line">            <span class="keyword">break</span>;                </span><br><span class="line">            <span class="keyword">case</span> memorySelect:                    <span class="comment">//TODO  </span></span><br><span class="line">            <span class="keyword">break</span>;                </span><br><span class="line">            <span class="keyword">case</span> numSelect:                    <span class="comment">//TODO                    </span></span><br><span class="line">            <span class="keyword">break</span>;            </span><br><span class="line">            &#125;        </span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">colorSelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    mediator.changed(<span class="keyword">this</span>);&#125;;</span><br><span class="line">memorySelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    mediator.changed(<span class="keyword">this</span>);&#125;;</span><br><span class="line">numSelect.onchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    mediator.changed(<span class="keyword">this</span>);&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、装饰者模式"><a href="#5、装饰者模式" class="headerlink" title="5、装饰者模式"></a><strong>5、装饰者模式</strong></h2><p><strong>装饰者模式的定义：</strong>在不改变对象自身的基础上，在程序运行期间给对象动态地添加方法。</p>
+<p>例如：现有4种型号的自行车分别被定义成一个单独的类，如果给每辆自行车都加上前灯、尾灯、铃铛这3个配件，如果用类继承的方式，需要创建4*3=12个子类。但如果通过装饰者模式，只需要创建3个类。</p>
+<p>装饰者模式适用的场景：原有方法维持不变，在原有方法上再挂载其他方法来满足现有需求；函数的解耦，将函数拆分成多个可复用的函数，再将拆分出来的函数挂载到某个函数上，实现相同的效果但增强了复用性。</p>
+<p>例：用AOP装饰函数实现装饰者模式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.before = <span class="function"><span class="keyword">function</span>(<span class="params">beforefn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;    <span class="comment">//保存原函数引用    </span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//返回包含了原函数和新函数的 '代理函数'</span></span><br><span class="line">	beforefn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);    <span class="comment">//执行新函数，修正this        </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);  <span class="comment">//执行原函数    </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Function</span>.prototype.after = <span class="function"><span class="keyword">function</span>(<span class="params">afterfn</span>) </span>&#123;    </span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;    </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;        </span><br><span class="line">        <span class="keyword">var</span> ret = self.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);        </span><br><span class="line">        afterfn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);        </span><br><span class="line">        <span class="keyword">return</span> ret;    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'2'</span>);&#125;<span class="comment">//func1和func3为挂载函数</span></span><br><span class="line"><span class="keyword">var</span> func1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    <span class="built_in">console</span>.log(<span class="string">'1'</span>);&#125;</span><br><span class="line"><span class="keyword">var</span> func3 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;    <span class="built_in">console</span>.log(<span class="string">'3'</span>);&#125;</span><br><span class="line">func = func.before(func1).after(func3);</span><br><span class="line">func();</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http:2020/08/06/javaScript设计模式/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/设计模式/" rel="tag">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="2020/08/06/小程序web-view踩坑/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            小程序web-view踩坑
+          
+        </div>
+      </a>
+    
+    
+      <a href="2020/08/06/react-redux/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">react-redux</div>
+      </a>
+    
+  </nav>
+
+  
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2020
+        <i class="ri-heart-fill heart_icon"></i> Chris
+      </li>
+    </ul>
+    <!-- <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul> -->
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/logo.jpg" alt="追卓"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

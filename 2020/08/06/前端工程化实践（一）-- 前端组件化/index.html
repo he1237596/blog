@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    前端工程化实践（一）-- 前端组件化 |  追卓
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-前端工程化实践（一）-- 前端组件化"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端工程化实践（一）-- 前端组件化
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="2020/08/06/前端工程化实践（一）-- 前端组件化/" class="article-date">
+  <time datetime="2020-08-06T03:04:29.066Z" itemprop="datePublished">2020-08-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="categories/前端/">前端</a> / <a class="article-category-link" href="categories/前端/前端工程化/">前端工程化</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">5 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="前端工程化实践（一）–-前端组件化"><a href="#前端工程化实践（一）–-前端组件化" class="headerlink" title="前端工程化实践（一）– 前端组件化"></a>前端工程化实践（一）– 前端组件化</h1><h4 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h4><ul>
+<li><p>公司当前的前端开发现状是，各个项目组各自封装各自的组件，无法快速复用和统一管理，影响开发效率，增加迭代成本</p>
+</li>
+<li><p>目前国内访问国外服务器被墙的现状，在项目初始化和迭代过程中，出现npm包无法下载，下载慢的问题，即便切换其他镜像下载有时也不理想，（不同源的包甚至有些微差异，目前在样式方面有体现）</p>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><p>托管公司内部组件库代码，不对外，方便管理<br>项目中使用到的npm包会缓存到私服库里，能明显提升之后下包的速度</p>
+</li>
+<li><p>前置基础：默认服务器已安装node，PM2</p>
+</li>
+</ul>
+<p>因为公司目前是React技术栈，且主要使用umi+antd的生态，故本着一切从快从简的原则，直接使用了相关的umi/father工具，master是使用一开始的library工具，3月份作者改名为dumi，支持迁移，马上探索！</p>
+<h2 id="npm私服搭建"><a href="#npm私服搭建" class="headerlink" title="npm私服搭建"></a>npm私服搭建</h2><p>使用基于node的verdaccio搭建，简单，方便，快捷!此处默认服务器已安装node环境</p>
+<ul>
+<li><p>全局安装verdaccio：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i verdaccio -g;</span><br></pre></td></tr></table></figure></li>
+<li><p>全局安装pm2，用来守护node进程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i pm2 -g;</span><br></pre></td></tr></table></figure></li>
+<li><p>启动verdaccio：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start verdaccio</span><br></pre></td></tr></table></figure></li>
+<li><p>停止verdaccio：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 stop verdaccio</span><br></pre></td></tr></table></figure>
+<p><img src="E:%5C%E7%AC%94%E8%AE%B0%5C001.png" alt="001"></p>
+<h3 id="verdaccio使用"><a href="#verdaccio使用" class="headerlink" title="verdaccio使用"></a>verdaccio使用</h3></li>
+<li><p>查看config.yaml配置文件  config.yaml<br><img src="E:%5C%E7%AC%94%E8%AE%B0%5C002.png" alt="002"></p>
+</li>
+<li><p>修改配置 vim /root/.config/verdaccio/config.yaml，配置服务端口 0.0.0.:4873,也可以配置包的缓存位置，请留意这些红色标注<br><img src="E:%5C%E7%AC%94%E8%AE%B0%5C003.png" alt="003"></p>
+</li>
+<li><p>阿里云服务器记得打开端口访问权限</p>
+</li>
+<li><p>其他解释：</p>
+<p><strong>字段含义：</strong><br> scope有两种模式<br> 一种是 @/ 表示某下属的某项目<br> 另一种是 * 匹配项目名称(名称在package.json中有定义)<br> 权限：</p>
+<ul>
+<li><code>access</code>: 表示哪一类用户可以对匹配的项目进行安装(install)</li>
+<li><code>publish</code>: 表示哪一类用户可以对匹配的项目进行发布(publish)</li>
+<li><code>proxy</code>: 如其名，这里的值是对应于 uplinks 的名称，如果本地不存在，允许去对应的uplinks去取。</li>
+</ul>
+<p><strong>值的含义：</strong></p>
+<ul>
+<li><code>$all</code> 表示所有人(已注册、未注册)都可以执行对应的操作</li>
+<li><code>$authenticated</code> 表示只有通过验证的人(已注册)可以执行对应操作，注意，任何人都可以去注册账户。</li>
+<li><code>$anonymous</code> 表示只有匿名者可以进行对应操作（通常无用）</li>
+</ul>
+<p>如果要指定某个用户才有权限，可以直接写上用户名，多个用户用空格隔开，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">publish: michael martin</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="father（umi）使用"><a href="#father（umi）使用" class="headerlink" title="father（umi）使用"></a>father（umi）使用</h3><p>一开始用的library，后面作者推荐用更新到father，目前又推荐使用dumi暂时未升级</p>
+<ul>
+<li><p>修改package.json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">    "doc:dev": "father doc dev", //本地文档开发</span><br><span class="line">    "dev": "father build --watch",// 监视组件构建</span><br><span class="line">    "build": "father build",// 组件构建</span><br><span class="line">    "doc:build": "father doc build",//本地文档构建</span><br><span class="line">    "doc:deploy": "father doc deploy"//构建发布文档到远程git</span><br><span class="line">&#125;</span><br><span class="line">"main": "dist/index.js",</span><br><span class="line">"module": "dist/index.esm.js",</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改.fatherrc.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  entry: <span class="string">'src/index.js'</span>,</span><br><span class="line">  esm: <span class="string">'babel'</span>, <span class="comment">//默认rollup </span></span><br><span class="line">  cjs: <span class="string">'babel'</span>, <span class="comment">//默认rollup </span></span><br><span class="line">  <span class="comment">//rollup的情况下发现无法用es6导入 只能用require，同时package.json的入口的配置"main": "dist/index.js","module": "dist/index.esm.js",即从dist作为主入口</span></span><br><span class="line">    </span><br><span class="line">  doc: &#123;</span><br><span class="line">    base: <span class="string">'/umi_cps'</span>, <span class="comment">//如果是根目录直接写‘/’，我此处配置未git上的仓库名称</span></span><br><span class="line">    title: <span class="string">'MgUi'</span>, <span class="comment">// 左上角title</span></span><br><span class="line">    themeConfig: &#123; <span class="attr">mode</span>: <span class="string">'light'</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  cssModules: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// cssModules: &#123;</span></span><br><span class="line">  <span class="comment">//   generateScopedName: 'mglinker_[name]__[local]___[hash:base64:5]',</span></span><br><span class="line">  <span class="comment">// &#125;,</span></span><br><span class="line">  <span class="comment">// extractCSS: true,</span></span><br><span class="line">  extraRollupPlugins: [</span><br><span class="line">    commonjs(&#123;</span><br><span class="line">      <span class="comment">// include: 'node_modules/**',</span></span><br><span class="line">      <span class="comment">// namedExports: &#123; 'react': ['createElement', 'Component', 'Fragment', 'createContext', 'useContext', 'useEffect', 'useMemo', 'useRef', 'useState', 'forwardRef', 'Suspense', 'useCallback', 'memo' ] &#125;,</span></span><br><span class="line">      namedExports: &#123; <span class="string">'react'</span>: [<span class="string">'createElement'</span>, <span class="string">'Component'</span>] &#125;, <span class="comment">// react的api如果有报缺少，则在配置</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  extraBabelPlugins: [</span><br><span class="line">    [<span class="string">'babel-plugin-import'</span>, &#123;</span><br><span class="line">      libraryName: <span class="string">'antd'</span>,</span><br><span class="line">      libraryDirectory: <span class="string">'es'</span>,</span><br><span class="line">      style: <span class="literal">true</span>,</span><br><span class="line">    &#125;],</span><br><span class="line">  ],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开发调试包</p>
+<ul>
+<li><p>进入组件库根目录，执行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据package.json上的配置，包被链接到全局（去全局找会发现那里是一个快捷方式指向本地组件库这里）</span></span><br><span class="line">npm link</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>进入测试引用的项目，执行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//链接本地组件库名（package.json内的名字）</span></span><br><span class="line">npm link umi_cps</span><br><span class="line"><span class="comment">//链接完成，测试使用</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>解除link</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//解除项目和模块link，项目目录下</span></span><br><span class="line">npm unlink 模块名</span><br><span class="line"><span class="comment">//解除模块全局link，模块目录下</span></span><br><span class="line">npm unlink 模块名</span><br></pre></td></tr></table></figure>
+
+<p>Tip: 也可以在同一项目目录下，相对路径引入</p>
+</li>
+</ul>
+</li>
+<li><p>发布包</p>
+<ul>
+<li><p>注意切换镜像，我是用镜像管理工具，也可以直接使用npm config</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nrm use npm <span class="comment">//或者私服地址的镜像名 npm config set registry  https://xxxx.org</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>登录发布</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注册账号（无账号网站注册或者使用命令行创建）</span></span><br><span class="line">npm adduser</span><br><span class="line">Username: xxx</span><br><span class="line">Password: xxxxxx</span><br><span class="line">Email: xxxx@gmail.com</span><br><span class="line"><span class="comment">// 登录</span></span><br><span class="line">npm login</span><br><span class="line">Username: xxx</span><br><span class="line">Password: xxxxxx</span><br><span class="line">Email: xxxx@gmail.com</span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">npm publish</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>再次提醒： 注意切换镜像！！！切换后要重新登录！</li>
+</ul>
+</li>
+</ul>
+<h1 id="组件Demo"><a href="#组件Demo" class="headerlink" title="组件Demo"></a>组件Demo</h1><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install umi_cps</span><br></pre></td></tr></table></figure>
+
+<p>或者用yarn安装</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add umi_cps</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; </span><br><span class="line">  MgButton,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'umi_cps'</span></span><br><span class="line"><span class="keyword">const</span> Demo = <span class="function"><span class="params">()</span> =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">MgButton</span>&gt;</span>蘑菇的第一个button<span class="tag">&lt;/<span class="name">MgButton</span>&gt;</span></span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Demo</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-组件开发调试"><a href="#3-组件开发调试" class="headerlink" title="3.组件开发调试"></a>3.组件开发调试</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run doc:dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-组件构建"><a href="#4-组件构建" class="headerlink" title="4.组件构建"></a>4.组件构建</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-构建使用文档"><a href="#5-构建使用文档" class="headerlink" title="5.构建使用文档"></a>5.构建使用文档</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-推送文档到远程git仓库发布"><a href="#5-推送文档到远程git仓库发布" class="headerlink" title="5.推送文档到远程git仓库发布"></a>5.推送文档到远程git仓库发布</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run doc:deploy</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http:2020/08/06/前端工程化实践（一）-- 前端组件化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/npm/" rel="tag">npm</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="2020/08/06/react性能实践/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            react性能实践
+          
+        </div>
+      </a>
+    
+    
+      <a href="2020/08/06/小程序web-view踩坑/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">小程序web-view踩坑</div>
+      </a>
+    
+  </nav>
+
+  
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2020
+        <i class="ri-heart-fill heart_icon"></i> Chris
+      </li>
+    </ul>
+    <!-- <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul> -->
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/logo.jpg" alt="追卓"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
